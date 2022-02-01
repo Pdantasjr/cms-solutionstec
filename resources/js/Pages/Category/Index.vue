@@ -210,7 +210,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="px-4 py-3">
-                                                            <Link :href="route('category.update', [category.id])" class="hover:underline focus:outline-none focus:underline text-primary hover:text-yellow-600 text-sm font-medium">Editar</Link>
+                                                            <Link :href="route('category.edit', [category.id])" class="hover:underline focus:outline-none focus:underline text-primary hover:text-yellow-600 text-sm font-medium">Editar</Link>
                                                         </div>
                                                     </td>
                                                 </tr>

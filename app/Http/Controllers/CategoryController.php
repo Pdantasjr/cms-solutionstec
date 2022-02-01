@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -26,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Category/Create');
     }
 
     /**
@@ -37,7 +39,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        if(!$validated) {
+            return Redirect::route('category.create');
+        }
+
+        $category = New Category();
+        $slug = $this->setSlug($request->name);
+
+        $category->name = $request->name;
+        $category->slug = $slug;
+        $category->save();
+
+        return Redirect::route('category.index');
     }
 
     /**
@@ -59,7 +76,12 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $categoryUpdated = $category->name;
+        $categoryUpdatedId = $category->id;
+        return Inertia::render('Category/Edit', [
+            'categoryUpdated' => $categoryUpdated,
+            'categoryUpdatedId' => $categoryUpdatedId
+        ]);
     }
 
     /**
@@ -71,7 +93,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $newCategory = New Category();
+
+        $newCategory->name = $category->name;
+        $newCategory->update();
+
+        return Redirect::route('category.index');
     }
 
     /**
@@ -83,5 +110,24 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    private function setSlug($category) {
+        $titleSlug = Str::slug($category);
+
+        $query = Category::all();
+
+        $t = 0;
+        foreach ($query as $category) {
+            if (Str::slug($category->name) === $titleSlug) {
+                $t++;
+            }
+        }
+
+        if ($t > 0) {
+            $titleSlug = $titleSlug . '-' . $t;
+        }
+
+        return $titleSlug;
     }
 }
