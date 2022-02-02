@@ -187,7 +187,7 @@
                                                                         class="inline-flex items-center space-x-3 rtl:space-x-reverse"
                                                                         for="title">
                                                                     <span class="text-sm font-medium leading-4 text-gray-700">
-                                                                        Nome da categoria
+                                                                        Nome da categoria {{ $page.props.errors.name }}
                                                                         <sup class="font-medium text-danger-700">*</sup>
                                                                     </span>
                                                                     </label>
@@ -196,6 +196,7 @@
                                                                     <div class="flex-1">
                                                                         <input type="text" id="title" name="title" v-model="form.name"
                                                                                class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+                                                                        <div v-if="$page.props.errors.name" v-text="$page.props.errors.name" class="text-red-500 text-xs mt-1"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -234,7 +235,6 @@ import MainContent from "@/Layouts/MainContent";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
 import JetNavLink from "@/Jetstream/NavLink";
-
 
 export default defineComponent({
     props: {},
