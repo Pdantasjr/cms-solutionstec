@@ -24,6 +24,11 @@ class CreatePatientsTable extends Migration
         });
     }
 
+//     Criar:
+//     - plano;
+//     - idade;
+//     - idade;
+
     /**
      * Reverse the migrations.
      *
