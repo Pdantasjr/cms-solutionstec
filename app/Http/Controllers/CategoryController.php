@@ -88,17 +88,11 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request)
     {
-        $newCategory = New Category();
-
-        $newCategory->name = $category->name;
-        $newCategory->update();
-
-        return Redirect::route('category.index');
+        dd($request);
     }
 
     /**
