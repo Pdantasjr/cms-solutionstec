@@ -69,12 +69,10 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        if($patient->id) {
-            $patient = Patient::where('id', $patient->id)->get();
+            $showPatient = $patient;
             return Inertia::render('Patient/Show', [
-                'patient' => $patient,
+                'patient' => $showPatient,
             ]);
-        }
     }
 
     /**
@@ -105,7 +103,7 @@ class PatientController extends Controller
         if($patient->id) {
             Patient::find($patient->id)->update($request->all());
         }
-        return Inertia::render('Patient/Index');
+        return Redirect::route('patient.index');
     }
 
     /**

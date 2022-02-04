@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Paciente">
+    <app-layout title="Pacientes">
         <sidebar/>
         <main-content>
             <template #header>

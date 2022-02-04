@@ -167,20 +167,36 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl text-gray-900">
-                                Paciente: {{ form.name }} asa
+                                Paciente: {{ $props.patient.name }}
                             </h1>
                             <!--Botão-->
                             <div class="flex flex-wrap items-center gap-4 justify-start shrink-0">
                                 <Link
                                     class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
-                                    :href="route('patient.create')">
+                                    :href="route('patient.edit',[$props.patient.id])">
                                     <span>Editar</span>
                                 </Link>
                             </div>
                         </header>
                         <div>
                             <div class="border border-gray-300 shadow-sm bg-white rounded-xl">
-                                <div class="overflow-y-auto relative ">
+                                <div class="overflow-y-auto relative">
+                                    <div class="m-5">
+                                        <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"
+                                             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                                             alt="product designer">
+                                        <h1 class="text-md text-gray-700"> Nome: <span class="text-lg text-gray-600 font-bold"> {{ $props.patient.name }} </span></h1>
+                                        <h1 class="text-md text-gray-700"> E-mail: <span class="text-lg text-gray-600 font-bold"> {{ $props.patient.email }} </span></h1>
+                                        <div class="shadow-inner rounded bg-gray-50 my-5">
+                                            <h1 class="text-md text-gray-700 m-3 py-3">Observações: </h1>
+                                            <p class="text-md p-4 text-gray-600 mt-4"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        </div>
+                                        <Link
+                                            class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
+                                            :href="route('patient.index',[$props.patient.id])">
+                                            <span>Voltar</span>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -202,19 +218,6 @@ import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
 
 export default defineComponent({
-    name: "Patient show",
-    props: {
-        patient: Object,
-    },
-    data() {
-        return {
-            form: this.$inertia.form({
-                name: this.patient.name,
-                email: this.patient.email,
-                password: this.patient.password,
-            }),
-        }
-    },
     components: {
         AppLayout,
         Sidebar,
@@ -223,6 +226,18 @@ export default defineComponent({
         Link,
         JetDropdown,
         JetDropdownLink,
-    }
+    },
+    props: {
+        patient: Object,
+    },
+    data() {
+        return {
+            form: this.$inertia.form({
+                name: this.patient.name,
+                email: this.patient.email,
+                teste: 'Paulo'
+            }),
+        }
+    },
 })
 </script>
