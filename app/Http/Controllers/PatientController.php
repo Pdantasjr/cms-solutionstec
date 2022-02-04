@@ -17,8 +17,9 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patient = Patient::all();
-        return Inertia::render('Patient/Index', ['patient' => $patient]);
+        return Inertia::render('Patient/Index', [
+            'patient' => Patient::all(),
+        ]);
     }
 
     /**
@@ -58,7 +59,7 @@ class PatientController extends Controller
         $patient->password = $request->password;
         $patient->save();
 
-        return Redirect::route('patient.index');
+        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente ".$request->name." cadastrado!"]]);
     }
 
     /**

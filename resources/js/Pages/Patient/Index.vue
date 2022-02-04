@@ -1,5 +1,6 @@
 <template>
     <app-layout title="Pacientes">
+        <toast :toast="$page.props.flash.message"></toast>
         <sidebar/>
         <main-content>
             <template #header>
@@ -167,7 +168,7 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl text-gray-900">
-                                Pacientes
+                                Pacientes {{$page.popstate}}
                             </h1>
                             <!--Botão-->
                             <div class="flex flex-wrap items-center gap-4 justify-start shrink-0">
@@ -213,7 +214,7 @@
                                             </td>
                                             <td>
                                                 <div class="px-4 py-3">
-                                                    <span class="text-gray-600">{{ patients.updated_at }}</span>
+                                                    <span class="text-gray-600">{{ patients.updated_at | dateFormat }}</span>
                                                 </div>
                                             </td>
                                             <td>
@@ -292,6 +293,7 @@ import Sidebar from "@/Layouts/Sidebar";
 import MainContent from "@/Layouts/MainContent";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
+import Toast from "@/Componentes/Toast";
 
 export default defineComponent({
     name: "Patient Edit",
@@ -306,11 +308,18 @@ export default defineComponent({
         Link,
         JetDropdown,
         JetDropdownLink,
+        Toast,
     },
     methods: {
         submit(id) {
             this.$inertia.delete(route('patient.destroy', [id]), this.form);
         }
     },
+    filters: {
+        dateFormat(value) {
+            // return new Intl.DateTimeFormat('pt-BR').format(value)
+            return value+"!"
+        }
+    }
 })
 </script>

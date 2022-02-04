@@ -1,6 +1,6 @@
 <template>
     <app-layout title="Novo paciente">
-        <toast></toast>
+        <toast :toast="$page.props.flash.message"></toast>
         <sidebar/>
         <main-content>
             <template #header>
@@ -303,11 +303,12 @@ export default defineComponent({
         Toast
     },
     data() {
+        const bot = Math.floor(Math.random() * 100);
         return {
             form: this.$inertia.form({
-                name: null,
-                email: null,
-                password: null,
+                name: 'bot nº'+bot,
+                email: "bot_email"+bot+"@solutionstec.com.br",
+                password: 123456788789,
             }),
         }
     },
