@@ -18,7 +18,13 @@ class PatientController extends Controller
     public function index()
     {
         return Inertia::render('Patient/Index', [
-            'patients' => Patient::all(),
+            'patients' => Patient::paginate(10)
+                ->through(fn ($pCt) => [
+                    'id' => $pCt->id,
+                    'name' => $pCt->name,
+                    'email' => $pCt->email,
+                    'updated_at' => $pCt->updated_at
+                ]),
         ]);
     }
 

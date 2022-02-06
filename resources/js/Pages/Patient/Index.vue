@@ -201,7 +201,7 @@
                                         </thead>
 
                                         <tbody class="divide-y whitespace-nowrap">
-                                        <tr v-for="patient in patients" :key="patient.id">
+                                        <tr v-for="patient in patients.data" :key="patient.id">
                                             <td>
                                                 <div class="px-4 py-3">
                                                     <span class="text-gray-600">{{patient.name}}</span>
@@ -244,30 +244,30 @@
                                     </table>
                                 </div>
                                 <div class="p-2 border-t">
-                                    <nav role="navigation" aria-label="Pagination Navigation"
-                                         class="flex items-center justify-between">
+                                    <nav class="flex items-center justify-between">
                                         <div class="hidden flex-1 items-center lg:grid grid-cols-3">
                                             <div class="flex items-center">
                                                 <div class="pl-2 text-sm font-medium">
+                                                    <Pagination class="mt-6" :links="patients.links" />
                                                 </div>
                                             </div>
 
-                                            <div class="flex items-center justify-center">
-                                                <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                                                    <select
-                                                        id="tableRecordsPerPageSelect"
-                                                        class="h-8 text-sm pr-8 leading-none transition duration-75 border-gray-200 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600">
-                                                        <option value="5">5</option>
-                                                        <option value="10">10</option>
-                                                        <option value="25">25</option>
-                                                        <option value="50">50</option>
-                                                    </select>
+<!--                                            <div class="flex items-center justify-center">-->
+<!--                                                <div class="flex items-center space-x-2 rtl:space-x-reverse">-->
+<!--                                                    <select-->
+<!--                                                        id="tableRecordsPerPageSelect"-->
+<!--                                                        class="h-8 text-sm pr-8 leading-none transition duration-75 border-gray-200 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600">-->
+<!--                                                        <option value="5">5</option>-->
+<!--                                                        <option value="10">10</option>-->
+<!--                                                        <option value="25">25</option>-->
+<!--                                                        <option value="50">50</option>-->
+<!--                                                    </select>-->
 
-                                                    <label for="tableRecordsPerPageSelect" class="text-sm font-medium">
-                                                        por página.
-                                                    </label>
-                                                </div>
-                                            </div>
+<!--                                                    <label for="tableRecordsPerPageSelect" class="text-sm font-medium">-->
+<!--                                                        por página.-->
+<!--                                                    </label>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
                                             <div class="flex items-center justify-end">
                                             </div>
@@ -293,6 +293,7 @@ import MainContent from "@/Layouts/MainContent";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
 import Toast from "@/Componentes/Toast";
+import Pagination from "@/Componentes/Pagination";
 
 export default defineComponent({
     name: "Patient Edit",
@@ -308,6 +309,7 @@ export default defineComponent({
         JetDropdown,
         JetDropdownLink,
         Toast,
+        Pagination,
     },
     methods: {
         submit(id) {
@@ -316,3 +318,6 @@ export default defineComponent({
     }
 })
 </script>
+
+<!--    {{  new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric'} ).format( new Date(patient.updated_at)) }} às {{ new Intl.DateTimeFormat('pt-BR', { hour: 'numeric', minute: 'numeric', second: 'numeric'} ).format( new Date(patient.updated_at)) }}
+                                                -->
