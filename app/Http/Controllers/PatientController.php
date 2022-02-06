@@ -19,11 +19,11 @@ class PatientController extends Controller
     {
         return Inertia::render('Patient/Index', [
             'patients' => Patient::paginate(10)
-                ->through(fn ($pCt) => [
-                    'id' => $pCt->id,
-                    'name' => $pCt->name,
-                    'email' => $pCt->email,
-                    'updated_at' => $pCt->updated_at
+                ->through(fn ($pct) => [
+                    'id' => $pct->id,
+                    'name' => $pct->name,
+                    'email' => $pct->email,
+                    'updated_at' => $pct->updated_at
                 ]),
         ]);
     }
