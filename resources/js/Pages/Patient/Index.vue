@@ -168,7 +168,7 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl text-gray-900">
-                                Pacientes {{$page.popstate}}
+                                Pacientes
                             </h1>
                             <!--Botão-->
                             <div class="flex flex-wrap items-center gap-4 justify-start shrink-0">
@@ -184,55 +184,55 @@
                                 <div class="overflow-y-auto relative ">
                                     <table class="w-full text-left divide-y table-auto">
                                         <thead>
-                                        <tr>
-                                            <th class="px-4 py-2">
-                                                <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Nome</span>
-                                            </th>
-                                            <th class="px-4 py-2">
-                                                <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Email</span>
-                                            </th>
-                                            <th class="px-4 py-2">
-                                                <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Última Atualização</span>
-                                            </th>
-                                            <th class="px-4 py-2">
-                                                <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Opções</span>
-                                            </th>
-                                        </tr>
+                                            <tr>
+                                                <th class="px-4 py-2">
+                                                    <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Nome</span>
+                                                </th>
+                                                <th class="px-4 py-2">
+                                                    <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Email</span>
+                                                </th>
+                                                <th class="px-4 py-2">
+                                                    <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Última Atualização</span>
+                                                </th>
+                                                <th class="px-4 py-2">
+                                                    <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Opções</span>
+                                                </th>
+                                            </tr>
                                         </thead>
 
                                         <tbody class="divide-y whitespace-nowrap">
-                                        <tr v-for="patients in patient" :key="patients.id">
+                                        <tr v-for="patient in patients" :key="patient.id">
                                             <td>
                                                 <div class="px-4 py-3">
-                                                    <span class="text-gray-600">{{patients.name}}</span>
+                                                    <span class="text-gray-600">{{patient.name}}</span>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="px-4 py-3">
-                                                    <span class="text-gray-600">{{patients.email}}</span>
+                                                    <span class="text-gray-600">{{patient.email}}</span>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="px-4 py-3">
-                                                    <span class="text-gray-600">{{ patients.updated_at | dateFormat }}</span>
+                                                    <span class="text-gray-600">{{ new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric'} ).format( new Date(patient.updated_at)) }} às {{ new Intl.DateTimeFormat('pt-BR', { hour: 'numeric', minute: 'numeric', second: 'numeric'} ).format( new Date(patient.updated_at)) }}</span>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="px-4 py-3 flex flex-row">
-                                                    <Link :href="route('patient.edit', [patients.id])" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-yellow-300 text-sm font-medium">
+                                                    <Link :href="route('patient.edit', [patient.id])" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-yellow-300 text-sm font-medium">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                         </svg>
                                                     </Link>
 
-                                                    <Link :href="route('patient.show', [patients.id])" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-blue-300 text-sm font-medium">
+                                                    <Link :href="route('patient.show', [patient.id])" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-blue-300 text-sm font-medium">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </Link>
 
-                                                    <button @click="submit(patients.id)" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-red-300 text-sm font-medium">
+                                                    <button @click="submit(patient.id)" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-red-600 text-sm font-medium">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>
@@ -243,7 +243,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                                 <div class="p-2 border-t">
                                     <nav role="navigation" aria-label="Pagination Navigation"
                                          class="flex items-center justify-between">
@@ -298,7 +297,7 @@ import Toast from "@/Componentes/Toast";
 export default defineComponent({
     name: "Patient Edit",
     props: {
-        patient: Object,
+        patients: Object,
     },
     components: {
         AppLayout,
@@ -313,12 +312,6 @@ export default defineComponent({
     methods: {
         submit(id) {
             this.$inertia.delete(route('patient.destroy', [id]), this.form);
-        }
-    },
-    filters: {
-        dateFormat(value) {
-            // return new Intl.DateTimeFormat('pt-BR').format(value)
-            return value+"!"
         }
     }
 })

@@ -22087,7 +22087,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
   name: "Patient Edit",
   props: {
-    patient: Object
+    patients: Object
   },
   components: {
     AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -22102,12 +22102,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submit: function submit(id) {
       this.$inertia["delete"](route('patient.destroy', [id]), this.form);
-    }
-  },
-  filters: {
-    dateFormat: function dateFormat(value) {
-      // return new Intl.DateTimeFormat('pt-BR').format(value)
-      return value + "!";
     }
   }
 }));
@@ -29060,9 +29054,13 @@ var _hoisted_34 = {
 var _hoisted_35 = {
   "class": "space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4"
 };
-var _hoisted_36 = {
+
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-2xl font-bold tracking-tight md:text-3xl text-gray-900"
-};
+}, " Pacientes ", -1
+/* HOISTED */
+);
+
 var _hoisted_37 = {
   "class": "flex flex-wrap items-center gap-4 justify-start shrink-0"
 };
@@ -29370,9 +29368,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           })])])])])])];
         }),
         dashboard_content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_36, " Pacientes " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$page.popstate), 1
-          /* TEXT */
-          ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Botão"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", _hoisted_35, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Botão"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
             "class": "inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white",
             href: _ctx.route('patient.create')
           }, {
@@ -29384,17 +29380,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
           }, 8
           /* PROPS */
-          , ["href"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_41, [_hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_43, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.patient, function (patients) {
+          , ["href"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_41, [_hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_43, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.patients, function (patient) {
             return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
-              key: patients.id
-            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patients.name), 1
+              key: patient.id
+            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.name), 1
             /* TEXT */
-            )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patients.email), 1
+            )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.email), 1
             /* TEXT */
-            )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patients.updated_at | _ctx.dateFormat), 1
+            )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Intl.DateTimeFormat('pt-BR', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            }).format(new Date(patient.updated_at))) + " às " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Intl.DateTimeFormat('pt-BR', {
+              hour: 'numeric',
+              minute: 'numeric',
+              second: 'numeric'
+            }).format(new Date(patient.updated_at))), 1
             /* TEXT */
             )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
-              href: _ctx.route('patient.edit', [patients.id]),
+              href: _ctx.route('patient.edit', [patient.id]),
               "class": "hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-yellow-300 text-sm font-medium"
             }, {
               "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -29406,7 +29410,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             }, 1032
             /* PROPS, DYNAMIC_SLOTS */
             , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
-              href: _ctx.route('patient.show', [patients.id]),
+              href: _ctx.route('patient.show', [patient.id]),
               "class": "hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-blue-300 text-sm font-medium"
             }, {
               "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -29419,9 +29423,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* PROPS, DYNAMIC_SLOTS */
             , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
               onClick: function onClick($event) {
-                return _ctx.submit(patients.id);
+                return _ctx.submit(patient.id);
               },
-              "class": "hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-red-300 text-sm font-medium"
+              "class": "hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-red-600 text-sm font-medium"
             }, _hoisted_55, 8
             /* PROPS */
             , _hoisted_53)])])]);

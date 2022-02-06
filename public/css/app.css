@@ -933,9 +933,6 @@ select {
 .visible {
   visibility: visible;
 }
-.\!visible {
-  visibility: visible !important;
-}
 .fixed {
   position: fixed;
 }
@@ -963,9 +960,6 @@ select {
 }
 .top-0 {
   top: 0px;
-}
-.top-3 {
-  top: 0.75rem;
 }
 .top-6 {
   top: 1.5rem;
@@ -2019,6 +2013,10 @@ select {
 .hover\:text-red-300:hover {
   --tw-text-opacity: 1;
   color: rgb(252 165 165 / var(--tw-text-opacity));
+}
+.hover\:text-red-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
