@@ -110,7 +110,7 @@ class PatientController extends Controller
         if($patient->id) {
             Patient::find($patient->id)->update($request->all());
         }
-        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente atualizado com sucesso!"]]);
+        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente ".$patient->name." atualizado com sucesso!"]]);
     }
 
     /**

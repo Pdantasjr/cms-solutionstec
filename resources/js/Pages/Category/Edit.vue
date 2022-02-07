@@ -238,8 +238,8 @@ import JetNavLink from "@/Jetstream/NavLink";
 
 export default defineComponent({
     props: {
-        categoryUpdated: String,
-        categoryUpdatedId: Number,
+        errors: Object,
+        category: Object,
     },
     components: {
         AppLayout,
@@ -254,26 +254,14 @@ export default defineComponent({
     data() {
         return {
             form: this.$inertia.form({
-                _method: 'put',
-                name: this.categoryUpdated,
-                id: this.categoryUpdatedId,
+                name: this.category.name,
+                id: this.category.id,
             }),
         }
     },
     methods: {
         submit() {
-            // this.form.post(route('category.update', this.form.id), this.form);
-            // this.$inertia.put(route('category.update', this.categoryUpdatedId), this.form, {
-            //  forceFormData: true
-            // });
-            this.$inertia.visit(route('category.update', this.form.id
-            ), {
-                method: 'put',
-                data: {
-                    name: this.form.name,
-                    id: this.form.id,
-                },
-            })
+            this.$inertia.put(route('category.update', [this.category.id]), this.form);
         }
     }
 })

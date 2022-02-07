@@ -251,24 +251,6 @@
                                                     <Pagination class="mt-6" :links="patients.links" />
                                                 </div>
                                             </div>
-
-<!--                                            <div class="flex items-center justify-center">-->
-<!--                                                <div class="flex items-center space-x-2 rtl:space-x-reverse">-->
-<!--                                                    <select-->
-<!--                                                        id="tableRecordsPerPageSelect"-->
-<!--                                                        class="h-8 text-sm pr-8 leading-none transition duration-75 border-gray-200 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600">-->
-<!--                                                        <option value="5">5</option>-->
-<!--                                                        <option value="10">10</option>-->
-<!--                                                        <option value="25">25</option>-->
-<!--                                                        <option value="50">50</option>-->
-<!--                                                    </select>-->
-
-<!--                                                    <label for="tableRecordsPerPageSelect" class="text-sm font-medium">-->
-<!--                                                        por página.-->
-<!--                                                    </label>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-
                                             <div class="flex items-center justify-end">
                                             </div>
                                         </div>
@@ -296,7 +278,7 @@ import Toast from "@/Componentes/Toast";
 import Pagination from "@/Componentes/Pagination";
 
 export default defineComponent({
-    name: "Patient Edit",
+    name: "Patient",
     props: {
         patients: Object,
     },
