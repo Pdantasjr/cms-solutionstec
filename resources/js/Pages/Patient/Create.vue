@@ -1,6 +1,5 @@
 <template>
     <app-layout title="Novo paciente">
-        <toast :toast="$page.props.flash.message"></toast>
         <sidebar/>
         <main-content>
             <template #header>
@@ -201,7 +200,7 @@
                                                     <div class="col-span-2 ">
                                                         <div class="space-y-2">
                                                             <!--Teste-->
-<!--                                                            <input-component></input-component>-->
+                                                            <input-component type="text" name="teste" title="Teste" errors="{{errors}}"></input-component>
                                                         </div>
                                                     </div>
                                                     <div class="col-span-1">
@@ -283,7 +282,6 @@ import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
 import JetNavLink from "@/Jetstream/NavLink";
 import InputComponent from "@/Componentes/Input";
-import Toast from "@/Componentes/Toast";
 
 
 export default defineComponent({
@@ -300,7 +298,6 @@ export default defineComponent({
         JetDropdownLink,
         JetNavLink,
         InputComponent,
-        Toast
     },
     data() {
         const bot = Math.floor(Math.random() * 100);

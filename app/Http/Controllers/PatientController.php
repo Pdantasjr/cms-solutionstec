@@ -110,7 +110,7 @@ class PatientController extends Controller
         if($patient->id) {
             Patient::find($patient->id)->update($request->all());
         }
-        return Redirect::route('patient.index');
+        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente atualizado com sucesso!"]]);
     }
 
     /**
@@ -122,7 +122,7 @@ class PatientController extends Controller
     public function destroy(Patient $patient)
     {
         $patient->delete();
-        return Redirect::route('patient.index');
+        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente excluído com sucesso!"]]);
     }
 
         private function setSlug($patient) {
