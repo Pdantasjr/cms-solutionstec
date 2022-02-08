@@ -1,5 +1,6 @@
 <template>
     <app-layout title="Blog">
+        <toast :toast="$page.props.flash.message"></toast>
         <sidebar/>
         <main-content>
             <template #header>
@@ -179,9 +180,9 @@
                             </div>
                         </header>
                         <div>
-                            <div class="border border-gray-300 shadow-sm bg-white rounded-xl">
+                            <div v-if="categories.data.length > 0" class="border border-gray-300 shadow-sm bg-white rounded-xl">
                                 <div class="overflow-y-auto relative border-t">
-                                        <table class="w-full text-left divide-y table-auto">
+                                    <table class="w-full text-left divide-y table-auto">
                                             <thead>
                                                 <tr class="bg-gray-50 rounded">
                                                     <th class="px-4 py-2">
@@ -197,7 +198,7 @@
                                             </thead>
 
                                             <tbody class="divide-y whitespace-nowrap">
-                                                <tr v-for="category in categories" :key="category.id">
+                                                <tr v-for="category in categories.data" :key="category.id">
                                                     <td>
                                                         <div class="px-4 py-3">
                                                            <span>{{category.name}}</span>
@@ -205,42 +206,34 @@
                                                     </td>
                                                     <td>
                                                         <div class="px-4 py-3">
-                                                           <span>{{category.updated_at }}</span>
+                                                           <span>{{ new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric'} ).format( new Date(category.updated_at)) }} às {{ new Intl.DateTimeFormat('pt-BR', { hour: 'numeric', minute: 'numeric', second: 'numeric'} ).format( new Date(category.updated_at)) }}</span>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="px-4 py-3">
-                                                            <Link :href="route('category.edit', [category.id])" class="hover:underline focus:outline-none focus:underline text-primary hover:text-yellow-600 text-sm font-medium">Editar</Link>
+                                                        <div class="px-4 py-3 flex flex-row">
+                                                            <Link :href="route('category.edit', [category.id])" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-yellow-300 text-sm font-medium">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                                </svg>
+                                                            </Link>
+                                                            <button @click="submit(category.id, category.name)" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-red-600 text-sm font-medium">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                                </svg>
+                                                            </button>
                                                         </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                 </div>
-
                                 <div class="p-2 border-t">
                                     <nav role="navigation" aria-label="Pagination Navigation"
                                          class="flex items-center justify-between">
                                         <div class="hidden flex-1 items-center lg:grid grid-cols-3">
                                             <div class="flex items-center">
                                                 <div class="pl-2 text-sm font-medium">
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-center justify-center">
-                                                <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                                                    <select
-                                                        id="tableRecordsPerPageSelect"
-                                                        class="h-8 text-sm pr-8 leading-none transition duration-75 border-gray-200 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600">
-                                                        <option value="5">5</option>
-                                                        <option value="10">10</option>
-                                                        <option value="25">25</option>
-                                                        <option value="50">50</option>
-                                                    </select>
-
-                                                    <label for="tableRecordsPerPageSelect" class="text-sm font-medium">
-                                                        por página.
-                                                    </label>
+                                                    <Pagination class="mt-6" :links="categories.links" />
                                                 </div>
                                             </div>
 
@@ -249,6 +242,9 @@
                                         </div>
                                     </nav>
                                 </div>
+                            </div>
+                            <div v-else>
+                                <p>Você ainda não cadastrou nenhuma categoria.</p>
                             </div>
                         </div>
                     </div>
@@ -267,8 +263,11 @@ import Sidebar from "@/Layouts/Sidebar";
 import MainContent from "@/Layouts/MainContent";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
+import Toast from '@/Componentes/Toast'
+import Pagination from "@/Componentes/Pagination";
 
 export default defineComponent({
+    name: "Category",
     props: {
         categories: Object,
     },
@@ -280,6 +279,15 @@ export default defineComponent({
         Link,
         JetDropdown,
         JetDropdownLink,
+        Toast,
+        Pagination,
+    },
+    methods: {
+        submit(id, name) {
+            if(confirm("Você tem certeza que deseja excluir "+name+" ?")) {
+                this.$inertia.delete(route('category.destroy', [id]), this.form)
+            }
+        }
     }
 })
 </script>

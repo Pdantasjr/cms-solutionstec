@@ -17,8 +17,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return Inertia::render('Category/Index', ['categories' => $categories]);
+//         $categories = Category::all();
+//         return Inertia::render('Category/Index', ['categories' => $categories]);
+        return Inertia::render('Category/Index', [
+            'categories' => Category::paginate(10)
+            ->through(fn ($ctg) => [
+                'id' => $ctg->id,
+                'name' => $ctg->name,
+                'updated_at' => $ctg->updated_at,
+            ]),
+        ]);
     }
 
     /**
@@ -54,18 +62,7 @@ class CategoryController extends Controller
         $category->slug = $slug;
         $category->save();
 
-        return Redirect::route('category.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
+        return Redirect::route('category.index')->with(['toast' => ['message' => "Categoria ".$request->name." cadastrado!"]]);
     }
 
     /**
@@ -76,29 +73,27 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $categoryUpdated = $category->name;
-        $categoryUpdatedId = $category->id;
-        return Inertia::render('Category/Edit', [
-            'categoryUpdated' => $categoryUpdated,
-            'categoryUpdatedId' => $categoryUpdatedId
-        ]);
+        if($category->id) {
+            $category = Category::find($category->id);
+            return Inertia::render('Category/Edit', [
+                'category' => $category
+            ]);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
     {
-        $newCategory = New Category();
-
-        $newCategory->name = $category->name;
-        $newCategory->update();
-
-        return Redirect::route('category.index');
+        if($category->id) {
+            Category::find($category->id)->update($request->all());
+        }
+        return Redirect::route('category.index')->with(['toast' => ['message' => "Categoria ".$category->name." atualizado com sucesso!"]]);
     }
 
     /**
@@ -109,7 +104,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return Redirect::route('category.index')->with(['toast' => ['message' => "Categoria excluído com sucesso!"]]);
     }
 
     private function setSlug($category) {

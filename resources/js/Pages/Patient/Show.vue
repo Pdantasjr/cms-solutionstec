@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Atualização de categoria">
+    <app-layout title="Paciente">
         <sidebar/>
         <main-content>
             <template #header>
@@ -166,57 +166,40 @@
                 <div class="flex-1 w-full px-4 mx-auto md:px-6 lg:px-8 max-w-7xl">
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
-                            <h1 class="text-2xl font-bold tracking-tight md:text-3xl">
-                                Atualização da categoria: {{ categoryUpdated }}
+                            <h1 class="text-2xl font-bold tracking-tight md:text-3xl text-gray-900">
+                                Paciente: {{ $props.patient.name }}
                             </h1>
+                            <!--Botão-->
+                            <div class="flex flex-wrap items-center gap-4 justify-start shrink-0">
+                                <Link
+                                    class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
+                                    :href="route('patient.edit',[$props.patient.id])">
+                                    <span>Editar</span>
+                                </Link>
+                            </div>
                         </header>
-                        <form class="space-y-12" @submit.prevent="submit()">
-                            <div class="grid gap-6 grid-cols-1">
-                                <div class="col-span-full">
-                                    <div class="grid gap-6 grid-cols-1 lg:grid-cols-3">
-                                        <div class="col-span-2 ">
-                                            <div class="p-6 bg-white shadow rounded-xl">
-                                                <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
-                                                    <!--                                                    Título-->
-                                                    <div class="col-span-2 ">
-                                                        <div>
-                                                            <div class="space-y-2">
-                                                                <div
-                                                                    class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
-                                                                    <label
-                                                                        class="inline-flex items-center space-x-3 rtl:space-x-reverse"
-                                                                        for="title">
-                                                                    <span class="text-sm font-medium leading-4 text-gray-700">
-                                                                        Nome da nova categoria:
-                                                                        <sup class="font-medium text-red-700">*</sup>
-                                                                    </span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="flex items-center space-x-1 group">
-                                                                    <div class="flex-1">
-                                                                        <input type="text" id="title" name="title" v-model="form.name"
-                                                                               class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <div>
+                            <div class="border border-gray-300 shadow-sm bg-white rounded-xl">
+                                <div class="overflow-y-auto relative">
+                                    <div class="m-5">
+                                        <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"
+                                             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                                             alt="product designer">
+                                        <h1 class="text-md text-gray-700"> Nome: <span class="text-lg text-gray-600 font-bold"> {{ $props.patient.name }} </span></h1>
+                                        <h1 class="text-md text-gray-700"> E-mail: <span class="text-lg text-gray-600 font-bold"> {{ $props.patient.email }} </span></h1>
+                                        <div class="shadow-inner rounded bg-gray-50 my-5">
+                                            <h1 class="text-md text-gray-700 m-3 py-3">Observações: </h1>
+                                            <p class="text-md p-4 text-gray-600 mt-4"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                                         </div>
+                                        <Link
+                                            class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
+                                            :href="route('patient.index',[$props.patient.id])">
+                                            <span>Voltar</span>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex flex-wrap items-center gap-4 justify-start">
-                                <Link :href="route('category.index')" class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-gray-400 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
-                                    <span>Voltar</span>
-                                </Link>
-                                <button type="submit"
-                                        class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
-                                    <span>Atualizar</span>
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -225,7 +208,7 @@
 </template>
 
 <script>
-import {defineComponent, reactive} from 'vue'
+import {defineComponent} from 'vue'
 
 import AppLayout from '@/Layouts/AppLayout.vue';
 import {Head, Link} from '@inertiajs/inertia-vue3';
@@ -233,14 +216,8 @@ import Sidebar from "@/Layouts/Sidebar";
 import MainContent from "@/Layouts/MainContent";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
-import JetNavLink from "@/Jetstream/NavLink";
-
 
 export default defineComponent({
-    props: {
-        errors: Object,
-        category: Object,
-    },
     components: {
         AppLayout,
         Sidebar,
@@ -249,20 +226,18 @@ export default defineComponent({
         Link,
         JetDropdown,
         JetDropdownLink,
-        JetNavLink,
+    },
+    props: {
+        patient: Object,
     },
     data() {
         return {
             form: this.$inertia.form({
-                name: this.category.name,
-                id: this.category.id,
+                name: this.patient.name,
+                email: this.patient.email,
+                teste: 'Paulo'
             }),
         }
     },
-    methods: {
-        submit() {
-            this.$inertia.put(route('category.update', [this.category.id]), this.form);
-        }
-    }
 })
 </script>

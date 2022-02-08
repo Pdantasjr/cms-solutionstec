@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Atualização de categoria">
+    <app-layout title="Editar paciente">
         <sidebar/>
         <main-content>
             <template #header>
@@ -167,7 +167,7 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl">
-                                Atualização da categoria: {{ categoryUpdated }}
+                                Editar Paciente
                             </h1>
                         </header>
                         <form class="space-y-12" @submit.prevent="submit()">
@@ -177,7 +177,7 @@
                                         <div class="col-span-2 ">
                                             <div class="p-6 bg-white shadow rounded-xl">
                                                 <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
-                                                    <!--                                                    Título-->
+                                                    <!-- Título-->
                                                     <div class="col-span-2 ">
                                                         <div>
                                                             <div class="space-y-2">
@@ -185,17 +185,54 @@
                                                                     class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
                                                                     <label
                                                                         class="inline-flex items-center space-x-3 rtl:space-x-reverse"
-                                                                        for="title">
-                                                                    <span class="text-sm font-medium leading-4 text-gray-700">
-                                                                        Nome da nova categoria:
-                                                                        <sup class="font-medium text-red-700">*</sup>
-                                                                    </span>
+                                                                        for="name">
+                                                                        <span class="text-sm font-medium leading-4 text-gray-700">
+                                                                            Nome
+                                                                            <sup class="font-medium text-danger-700">*</sup>
+                                                                        </span>
                                                                     </label>
                                                                 </div>
                                                                 <div class="flex items-center space-x-1 group">
                                                                     <div class="flex-1">
-                                                                        <input type="text" id="title" name="title" v-model="form.name"
+                                                                        <input type="text" id="name" name="title" v-model="form.name"
                                                                                class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+                                                                        <div v-if="errors.name" v-text="errors.name" class="text-xs text-red-500 mt-1"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
+                                                                    <label
+                                                                        class="inline-flex items-center space-x-3 rtl:space-x-reverse"
+                                                                        for="email">
+                                                                        <span class="text-sm font-medium leading-4 text-gray-700">
+                                                                            E-mail
+                                                                            <sup class="font-medium text-danger-700">*</sup>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="flex items-center space-x-1 group">
+                                                                    <div class="flex-1">
+                                                                        <input type="email" id="email" name="title" v-model="form.email"
+                                                                               class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+                                                                        <div v-if="errors.email" v-text="errors.email" class="text-xs text-red-500 mt-1"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
+                                                                    <label
+                                                                        class="inline-flex items-center space-x-3 rtl:space-x-reverse"
+                                                                        for="password">
+                                                                        <span class="text-sm font-medium leading-4 text-gray-700">
+                                                                            Senha
+                                                                            <sup class="font-medium text-danger-700">*</sup>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="flex items-center space-x-1 group">
+                                                                    <div class="flex-1">
+                                                                        <input type="password" id="password" name="title" v-model="form.password"
+                                                                               class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+                                                                        <div v-if="errors.password" v-text="errors.password" class="text-xs text-red-500 mt-1"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -208,7 +245,7 @@
                                 </div>
                             </div>
                             <div class="flex flex-wrap items-center gap-4 justify-start">
-                                <Link :href="route('category.index')" class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-gray-400 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
+                                <Link :href="route('patient.index')" class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-gray-400 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
                                     <span>Voltar</span>
                                 </Link>
                                 <button type="submit"
@@ -237,9 +274,10 @@ import JetNavLink from "@/Jetstream/NavLink";
 
 
 export default defineComponent({
+    name: "Pacient Edit",
     props: {
         errors: Object,
-        category: Object,
+        patient: Object,
     },
     components: {
         AppLayout,
@@ -254,15 +292,16 @@ export default defineComponent({
     data() {
         return {
             form: this.$inertia.form({
-                name: this.category.name,
-                id: this.category.id,
+                name: this.patient.name,
+                email: this.patient.email,
+                password: this.patient.password,
             }),
         }
     },
     methods: {
         submit() {
-            this.$inertia.put(route('category.update', [this.category.id]), this.form);
+            this.$inertia.put(route('patient.update', [this.patient.id]), this.form);
         }
-    }
+    },
 })
 </script>

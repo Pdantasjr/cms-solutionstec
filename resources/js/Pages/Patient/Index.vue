@@ -1,5 +1,6 @@
 <template>
-    <app-layout title="Atualização de categoria">
+    <app-layout title="Pacientes">
+        <toast :toast="$page.props.flash.message"></toast>
         <sidebar/>
         <main-content>
             <template #header>
@@ -166,57 +167,131 @@
                 <div class="flex-1 w-full px-4 mx-auto md:px-6 lg:px-8 max-w-7xl">
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
-                            <h1 class="text-2xl font-bold tracking-tight md:text-3xl">
-                                Atualização da categoria: {{ categoryUpdated }}
+                            <h1 class="text-2xl font-bold tracking-tight md:text-3xl text-gray-900">
+                                Pacientes
                             </h1>
+                            <!--Botão-->
+                            <div class="flex flex-wrap items-center gap-4 justify-start shrink-0">
+                                <Link
+                                    class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
+                                    :href="route('patient.create')">
+                                    <span>Novo Paciente</span>
+                                </Link>
+                            </div>
                         </header>
-                        <form class="space-y-12" @submit.prevent="submit()">
-                            <div class="grid gap-6 grid-cols-1">
-                                <div class="col-span-full">
-                                    <div class="grid gap-6 grid-cols-1 lg:grid-cols-3">
-                                        <div class="col-span-2 ">
-                                            <div class="p-6 bg-white shadow rounded-xl">
-                                                <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
-                                                    <!--                                                    Título-->
-                                                    <div class="col-span-2 ">
-                                                        <div>
-                                                            <div class="space-y-2">
-                                                                <div
-                                                                    class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
-                                                                    <label
-                                                                        class="inline-flex items-center space-x-3 rtl:space-x-reverse"
-                                                                        for="title">
-                                                                    <span class="text-sm font-medium leading-4 text-gray-700">
-                                                                        Nome da nova categoria:
-                                                                        <sup class="font-medium text-red-700">*</sup>
-                                                                    </span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="flex items-center space-x-1 group">
-                                                                    <div class="flex-1">
-                                                                        <input type="text" id="title" name="title" v-model="form.name"
-                                                                               class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                        <div>
+                            <div v-if="patients.data.length > 0"
+                                 class="border border-gray-300 shadow-sm bg-white rounded-xl">
+                                <div class="overflow-y-auto relative">
+                                    <table class="w-full text-left divide-y table-auto">
+                                        <thead>
+                                        <tr>
+                                            <th class="px-4 py-2">
+                                                <span
+                                                    class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Nome</span>
+                                            </th>
+                                            <th class="px-4 py-2">
+                                                <span
+                                                    class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Email</span>
+                                            </th>
+                                            <th class="px-4 py-2">
+                                                <span
+                                                    class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Última Atualização</span>
+                                            </th>
+                                            <th class="px-4 py-2">
+                                                <span
+                                                    class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Opções</span>
+                                            </th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody class="divide-y whitespace-nowrap">
+                                        <tr v-for="patient in patients.data" :key="patient.id">
+                                            <td>
+                                                <div class="px-4 py-3">
+                                                    <span class="text-gray-600">{{ patient.name }}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="px-4 py-3">
+                                                    <span class="text-gray-600">{{ patient.email }}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="px-4 py-3">
+                                                    <span class="text-gray-600">{{
+                                                            new Intl.DateTimeFormat('pt-BR', {
+                                                                day: 'numeric',
+                                                                month: 'long',
+                                                                year: 'numeric'
+                                                            }).format(new Date(patient.updated_at))
+                                                        }} às {{
+                                                            new Intl.DateTimeFormat('pt-BR', {
+                                                                hour: 'numeric',
+                                                                minute: 'numeric',
+                                                                second: 'numeric'
+                                                            }).format(new Date(patient.updated_at))
+                                                        }}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="px-4 py-3 flex flex-row">
+                                                    <Link :href="route('patient.edit', [patient.id])"
+                                                          class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-yellow-300 text-sm font-medium">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                  stroke-width="2"
+                                                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                                        </svg>
+                                                    </Link>
+
+                                                    <Link :href="route('patient.show', [patient.id])"
+                                                          class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-blue-300 text-sm font-medium">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                  stroke-width="2"
+                                                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                  stroke-width="2"
+                                                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                                        </svg>
+                                                    </Link>
+
+                                                    <button @click="submit(patient.id, patient.name)"
+                                                            class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-red-600 text-sm font-medium">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                  stroke-width="2"
+                                                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="p-2 border-t">
+                                    <nav class="flex items-center justify-between">
+                                        <div class="hidden flex-1 items-center lg:grid grid-cols-3">
+                                            <div class="flex items-center">
+                                                <div class="pl-2 text-sm font-medium">
+                                                    <Pagination class="mt-6" :links="patients.links"/>
                                                 </div>
                                             </div>
+                                            <div class="flex items-center justify-end">
+                                            </div>
                                         </div>
-                                    </div>
+                                    </nav>
                                 </div>
                             </div>
-                            <div class="flex flex-wrap items-center gap-4 justify-start">
-                                <Link :href="route('category.index')" class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-gray-400 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
-                                    <span>Voltar</span>
-                                </Link>
-                                <button type="submit"
-                                        class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
-                                    <span>Atualizar</span>
-                                </button>
+                            <div v-else>
+                                <p>Você ainda não cadastrou nenhum paciente.</p>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -225,7 +300,7 @@
 </template>
 
 <script>
-import {defineComponent, reactive} from 'vue'
+import {defineComponent} from 'vue'
 
 import AppLayout from '@/Layouts/AppLayout.vue';
 import {Head, Link} from '@inertiajs/inertia-vue3';
@@ -233,13 +308,13 @@ import Sidebar from "@/Layouts/Sidebar";
 import MainContent from "@/Layouts/MainContent";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
-import JetNavLink from "@/Jetstream/NavLink";
-
+import Toast from "@/Componentes/Toast";
+import Pagination from "@/Componentes/Pagination";
 
 export default defineComponent({
+    name: "Patient",
     props: {
-        errors: Object,
-        category: Object,
+        patients: Object,
     },
     components: {
         AppLayout,
@@ -249,19 +324,14 @@ export default defineComponent({
         Link,
         JetDropdown,
         JetDropdownLink,
-        JetNavLink,
-    },
-    data() {
-        return {
-            form: this.$inertia.form({
-                name: this.category.name,
-                id: this.category.id,
-            }),
-        }
+        Toast,
+        Pagination,
     },
     methods: {
-        submit() {
-            this.$inertia.put(route('category.update', [this.category.id]), this.form);
+        submit(id, name) {
+            if (confirm("Você tem certeza que deseja excluir " + name + " ?")) {
+                this.$inertia.delete(route('patient.destroy', [id]), this.form)
+            }
         }
     }
 })
