@@ -81,7 +81,7 @@
                 </li>
 
                 <li>
-                    <p class="font-bold uppercase text-gray-600 text-xs tracking-wider">Agendamento</p>
+                    <p class="font-bold uppercase text-gray-600 text-xs tracking-wider">Agenda</p>
                     <ul class="text-sm space-y-1 -mx-3 mt-2">
                         <li>
                             <Link class="flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition hover:bg-gray-500/5 focus:bg-gray-500/5" :href="route('patient.index')">

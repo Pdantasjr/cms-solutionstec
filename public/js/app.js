@@ -24454,7 +24454,7 @@ var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "font-bold uppercase text-gray-600 text-xs tracking-wider"
-}, "Agendamento", -1
+}, "Agenda", -1
 /* HOISTED */
 );
 
