@@ -253,8 +253,11 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="text" id="category" name="category" v-model="form.category"
-                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+<!--                                                                    <input type="text" id="category" name="category" v-model="form.category" class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
+                                                                    <select id="category" name="category" v-model="form.category" class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300 hover:cursor-pointer">
+                                                                        <option disabled selected>Selecione uma categoria</option>
+                                                                        <option class="hover:cursor-pointer text-gray-800 " v-for="category in categories" key="{{category.id}}" :value="category.id">{{category.name}}</option>
+                                                                    </select>
                                                                     <div v-if="errors.category" v-text="errors.category" class="text-xs text-red-500 mt-1"></div>
                                                                 </div>
                                                             </div>
@@ -326,7 +329,8 @@ import InputComponent from "@/Componentes/Input";
 export default defineComponent({
     name: "Post Create",
     props: {
-        errors: Object
+        errors: Object,
+        categories: Object,
     },
     components: {
         AppLayout,
@@ -347,8 +351,8 @@ export default defineComponent({
                 slug: null,
                 subtitle: "subtitle."+bot+"@solutionstec.com.br",
                 post_content: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
-                author: 1,
-                category: 1,
+                author: this.$attrs.user.id,
+                category: null,
                 post_cover: "/posts/"+bot+"_imagem_teste.jpg",
             }),
         }

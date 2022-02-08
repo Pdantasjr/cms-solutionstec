@@ -272,11 +272,11 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="text" id="category" name="category"
-                                                                           v-model="form.category"
-                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
-                                                                    <div v-if="errors.category" v-text="errors.category"
-                                                                         class="text-xs text-red-500 mt-1"></div>
+<!--                                                                    <input type="text" id="category" name="category" v-model="form.category" class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
+                                                                    <select @change="updateCategory(form.category)" id="category" name="category" v-model="form.category" class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+                                                                        <option v-for="category in categories" key="{{category.id}}" :value="category.id">{{category.name}}</option>
+                                                                    </select>
+                                                                    <div v-if="errors.category" v-text="errors.category" class="text-xs text-red-500 mt-1"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -352,6 +352,7 @@ export default defineComponent({
     props: {
         errors: Object,
         post: Object,
+        categories: Object,
     },
     components: {
         AppLayout,
@@ -379,6 +380,10 @@ export default defineComponent({
     methods: {
         submit() {
             this.$inertia.put(route('post.update', [this.post.id]), this.form);
+        },
+        updateCategory(newCategory) {
+            this.form.category = newCategory;
+            console.log("debug: "+newCategory)
         }
     },
 })

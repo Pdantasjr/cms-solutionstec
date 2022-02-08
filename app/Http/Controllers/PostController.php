@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -18,15 +20,16 @@ class PostController extends Controller
     public function index()
     {
         return Inertia::render('Post/Index', [
-            'posts' => Post::paginate(10)
+            'posts' => Post::with('postCategory', 'postAuthor')
+                ->paginate(10)
                 ->through(fn ($pst) => [
                     'id' => $pst->id,
                     'title' => $pst->title,
                     'slug' => $pst->slug,
                     'subtitle' => $pst->subtitle,
                     'post_content' => $pst->post_content,
-                    'author' => $pst->author,
-                    'category' => $pst->category,
+                    'author' => $pst->postAuthor->only('name'),
+                    'category' => $pst->postCategory ? $pst->postCategory->only('name') : null,
                     'post_cover' => $pst->post_cover,
                 ]),
         ]);
@@ -39,7 +42,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Post/Create');
+        return Inertia::render('Post/Create', [
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -85,7 +90,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return Inertia::render('Post/Show',[
-            'post' => $post
+            'post' => $post,
         ]);
     }
 
@@ -100,6 +105,7 @@ class PostController extends Controller
         if($post->id) {
             return Inertia::render('Post/Edit', [
                 'post' => Post::find($post->id),
+                'categories' => Category::all(),
             ]);
         }
     }
@@ -113,6 +119,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if($request->category == null) {
+
+        }
         if($post->id) {
             Post::find($post->id)->update($request->all());
         }

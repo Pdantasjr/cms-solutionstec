@@ -201,12 +201,12 @@
                                                 <tr v-for="category in categories.data" :key="category.id">
                                                     <td>
                                                         <div class="px-4 py-3">
-                                                           <span>{{category.name}}</span>
+                                                           <span class="text-gray-600">{{category.name}}</span>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="px-4 py-3">
-                                                           <span>{{ new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric'} ).format( new Date(category.updated_at)) }} às {{ new Intl.DateTimeFormat('pt-BR', { hour: 'numeric', minute: 'numeric', second: 'numeric'} ).format( new Date(category.updated_at)) }}</span>
+                                                           <span class="text-gray-600">{{ new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric'} ).format( new Date(category.updated_at)) }} às {{ new Intl.DateTimeFormat('pt-BR', { hour: 'numeric', minute: 'numeric', second: 'numeric'} ).format( new Date(category.updated_at)) }}</span>
                                                         </div>
                                                     </td>
                                                     <td>

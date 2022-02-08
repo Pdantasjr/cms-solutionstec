@@ -9,6 +9,8 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $table = "posts";
+
     protected $fillable = [
         'title',
         'slug',
@@ -19,4 +21,12 @@ class Post extends Model
         'image',
         'post_cover',
     ];
+
+    public function postAuthor() {
+        return $this->hasone(User::class, 'id', 'author');
+    }
+
+    public function postCategory() {
+        return $this->hasOne(Category::class, 'id', 'category');
+    }
 }

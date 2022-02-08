@@ -217,12 +217,12 @@
                                             </td>
                                             <td>
                                                 <div class="px-4 py-3justify-center ">
-                                                    <span class="text-gray-600">{{post.author}}</span>
+                                                    <span class="text-gray-600">{{post.author.name}}</span>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="px-4 py-3justify-center ">
-                                                    <span class="text-gray-600">{{post.category}}</span>
+                                                    <span class="text-gray-600">{{post.category.name}}</span>
                                                 </div>
                                             </td>
                                             <td>
