@@ -1,6 +1,5 @@
 <template>
-    <app-layout title="Blog">
-        <toast :toast="$page.props.flash.message"></toast>
+    <app-layout title="Paciente">
         <sidebar/>
         <main-content>
             <template #header>
@@ -168,83 +167,37 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl text-gray-900">
-                                Categorias
+                                Paciente: {{ $props.post.name }}
                             </h1>
-                            <!--                            Botão-->
+                            <!--Botão-->
                             <div class="flex flex-wrap items-center gap-4 justify-start shrink-0">
                                 <Link
                                     class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
-                                    :href="route('category.create')">
-                                    <span>Nova categoria</span>
+                                    :href="route('post.edit',[$props.post.id])">
+                                    <span>Editar</span>
                                 </Link>
                             </div>
                         </header>
                         <div>
-                            <div v-if="categories.data.length > 0" class="border border-gray-300 shadow-sm bg-white rounded-xl">
-                                <div class="overflow-y-auto relative border-t">
-                                    <table class="w-full text-left divide-y table-auto">
-                                            <thead>
-                                                <tr class="bg-gray-50 rounded">
-                                                    <th class="px-4 py-2">
-                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm text-gray-600">Nome</span>
-                                                    </th>
-                                                    <th class="px-4 py-2">
-                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm text-gray-600">Última Atualização</span>
-                                                    </th>
-                                                    <th class="px-4 py-2">
-                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm text-gray-600">Opções</span>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody class="divide-y whitespace-nowrap">
-                                                <tr v-for="category in categories.data" :key="category.id">
-                                                    <td>
-                                                        <div class="px-4 py-3">
-                                                           <span>{{category.name}}</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="px-4 py-3">
-                                                           <span>{{ new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric'} ).format( new Date(category.updated_at)) }} às {{ new Intl.DateTimeFormat('pt-BR', { hour: 'numeric', minute: 'numeric', second: 'numeric'} ).format( new Date(category.updated_at)) }}</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="px-4 py-3 flex flex-row">
-                                                            <Link :href="route('category.edit', [category.id])" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-yellow-300 text-sm font-medium">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                                </svg>
-                                                            </Link>
-                                                            <button @click="submit(category.id, category.name)" class="hover:underline focus:outline-none px-2 focus:underline text-gray-500 hover:text-red-600 text-sm font-medium">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                </div>
-                                <div class="p-2 border-t">
-                                    <nav role="navigation" aria-label="Pagination Navigation"
-                                         class="flex items-center justify-between">
-                                        <div class="hidden flex-1 items-center lg:grid grid-cols-3">
-                                            <div class="flex items-center">
-                                                <div class="pl-2 text-sm font-medium">
-                                                    <Pagination class="mt-6" :links="categories.links" />
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-center justify-end">
-                                            </div>
+                            <div class="border border-gray-300 shadow-sm bg-white rounded-xl">
+                                <div class="overflow-y-auto relative">
+                                    <div class="m-5">
+                                        <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"
+                                             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                                             alt="product designer">
+                                        <h1 class="text-md text-gray-700"> Nome: <span class="text-lg text-gray-600 font-bold"> {{ $props.post.name }} </span></h1>
+                                        <h1 class="text-md text-gray-700"> E-mail: <span class="text-lg text-gray-600 font-bold"> {{ $props.post.email }} </span></h1>
+                                        <div class="shadow-inner rounded bg-gray-50 my-5">
+                                            <h1 class="text-md text-gray-700 m-3 py-3">Observações: </h1>
+                                            <p class="text-md p-4 text-gray-600 mt-4"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                                         </div>
-                                    </nav>
+                                        <Link
+                                            class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
+                                            :href="route('post.index',[$props.post.id])">
+                                            <span>Voltar</span>
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
-                            <div v-else>
-                                <p>Você ainda não cadastrou nenhuma categoria.</p>
                             </div>
                         </div>
                     </div>
@@ -263,14 +216,9 @@ import Sidebar from "@/Layouts/Sidebar";
 import MainContent from "@/Layouts/MainContent";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
-import Toast from '@/Componentes/Toast'
-import Pagination from "@/Componentes/Pagination";
 
 export default defineComponent({
-    name: "Category",
-    props: {
-        categories: Object,
-    },
+    name: "Post Show",
     components: {
         AppLayout,
         Sidebar,
@@ -279,15 +227,22 @@ export default defineComponent({
         Link,
         JetDropdown,
         JetDropdownLink,
-        Toast,
-        Pagination,
     },
-    methods: {
-        submit(id, name) {
-            if(confirm("Você tem certeza que deseja excluir "+name+" ?")) {
-                this.$inertia.delete(route('category.destroy', [id]), this.form)
-            }
+    props: {
+        post: Object,
+    },
+    data() {
+        return {
+            form: this.$inertia.form({
+                title: this.post.title,
+                slug: this.post.slug,
+                subtitle: this.post.subtitle,
+                post_content: this.post.post_content,
+                author: this.post.author,
+                category: this.post.category,
+                post_cover: this.post.post_cover,
+            }),
         }
-    }
+    },
 })
 </script>

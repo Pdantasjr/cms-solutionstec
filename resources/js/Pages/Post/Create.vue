@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Novo paciente">
+    <app-layout title="Novo post">
         <sidebar/>
         <main-content>
             <template #header>
@@ -167,93 +167,132 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl">
-                                Novo Paciente
+                                Novo Post
                             </h1>
                         </header>
                         <form class="space-y-12" @submit.prevent="submit()">
                             <div class="grid gap-6 grid-cols-1">
                                 <div class="col-span-full">
-                                    <div class="grid gap-6 grid-cols-1 lg:grid-cols-3">
-                                        <div class="col-span-2 ">
+                                    <div class="grid gap-6 grid-cols-1">
+                                        <div class="col-span-1 ">
                                             <div class="p-6 bg-white shadow rounded-xl">
                                                 <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
+                                                    <!--TÍTULO-->
                                                     <div class="col-span-2 ">
                                                         <div class="space-y-2">
-                                                            <!--NOME-->
                                                             <div class="flex items-center justify-between space-x-2">
-                                                                <label class="inline-flex items-center space-x-3" for="name">
+                                                                <label class="inline-flex items-center space-x-3" for="title">
                                                                         <span class="text-sm font-medium leading-4 text-gray-700">
-                                                                            Nome
+                                                                            Título
                                                                             <sup class="font-medium text-danger-700">*</sup>
                                                                         </span>
                                                                 </label>
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="text" id="name" name="title" v-model="form.name"
+                                                                    <input type="text" id="title" name="title" v-model="form.title"
                                                                            class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
-                                                                    <div v-if="errors.name" v-text="errors.name" class="text-xs text-red-500 mt-1"></div>
+                                                                    <div v-if="errors.title" v-text="errors.title" class="text-xs text-red-500 mt-1"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!--/TÍTULO-->
+                                                    <!--SUBTÍTULO-->
                                                     <div class="col-span-2 ">
                                                         <div class="space-y-2">
-                                                            <!--Teste-->
-                                                            <input-component type="text" name="teste" title="Teste" errors="{{errors}}"></input-component>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-span-1">
-                                                        <div class="space-y-2">
-                                                            <!--EMAIL-->
-                                                            <div class="flex items-center justify-between space-x-1">
-                                                                <label class="inline-flex items-center space-x-3" for="email">
-                                                                            <span class="text-sm font-medium leading-4 text-gray-700">
-                                                                                E-mail
-                                                                                <sup class="font-medium text-danger-700">*</sup>
-                                                                            </span>
+                                                            <div class="flex items-center justify-between space-x-2">
+                                                                <label class="inline-flex items-center space-x-3" for="subtitle">
+                                                                        <span class="text-sm font-medium leading-4 text-gray-700">
+                                                                            Subtítulo
+                                                                            <sup class="font-medium text-danger-700">*</sup>
+                                                                        </span>
                                                                 </label>
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="email" id="email" name="title" v-model="form.email"
+                                                                    <input type="text" id="subtitle" name="subtitle" v-model="form.subtitle"
                                                                            class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
-                                                                    <div v-if="errors.email" v-text="errors.email" class="text-xs text-red-500 mt-1"></div>
+                                                                    <div v-if="errors.subtitle" v-text="errors.subtitle" class="text-xs text-red-500 mt-1"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!--/SUBTÍTULO-->
+                                                    <!--POST CONTENT-->
+                                                    <div class="col-span-2 ">
+                                                        <div class="space-y-2">
+                                                            <div class="flex items-center justify-between space-x-2">
+                                                                <label class="inline-flex items-center space-x-3" for="post_content">
+                                                                        <span class="text-sm font-medium leading-4 text-gray-700">
+                                                                            Conteúdo
+                                                                            <sup class="font-medium text-danger-700">*</sup>
+                                                                        </span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="flex items-center space-x-1 group">
+                                                                <div class="flex-1">
+                                                                    <input type="text" id="post_content" name="post_content" v-model="form.post_content"
+                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+                                                                    <div v-if="errors.post_content" v-text="errors.post_content" class="text-xs text-red-500 mt-1"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/POST CONTENT-->
+                                                    <!--CATEGORY-->
                                                     <div class="col-span-1">
                                                         <div class="space-y-2">
-                                                            <!--SENHA-->
                                                             <div class="flex items-center justify-between space-x-1">
-                                                                <label class="inline-flex items-center space-x-3" for="password">
+                                                                <label class="inline-flex items-center space-x-3" for="category">
                                                                     <span class="text-sm font-medium leading-4 text-gray-700">
-                                                                        Senha
+                                                                        Categoria
                                                                         <sup class="font-medium text-danger-700">*</sup>
                                                                     </span>
                                                                 </label>
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="password" id="password" name="title"
-                                                                           v-model="form.password"
+                                                                    <input type="text" id="category" name="category" v-model="form.category"
                                                                            class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
-                                                                    <div v-if="errors.password" v-text="errors.password"
+                                                                    <div v-if="errors.category" v-text="errors.category" class="text-xs text-red-500 mt-1"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/CATEGORY-->
+                                                    <!--POST COVER-->
+                                                    <div class="col-span-1">
+                                                        <div class="space-y-2">
+                                                            <div class="flex items-center justify-between space-x-1">
+                                                                <label class="inline-flex items-center space-x-3" for="post_cover">
+                                                                    <span class="text-sm font-medium leading-4 text-gray-700">
+                                                                        Cover para o post
+                                                                        <sup class="font-medium text-danger-700">*</sup>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="flex items-center space-x-1 group">
+                                                                <div class="flex-1">
+                                                                    <input type="text" id="post_cover" name="post_cover"
+                                                                           v-model="form.post_cover"
+                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+                                                                    <div v-if="errors.post_cover" v-text="errors.post_cover"
                                                                          class="text-xs text-red-500 mt-1"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!--/POST COVER-->
                                                     <!--BOTÕES-->
                                                     <div class="col-span-2 ">
                                                         <div class="flex flex-wrap items-center gap-4 justify-start">
-                                                            <Link :href="route('patient.index')" class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-gray-400 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
+                                                            <Link :href="route('post.index')" class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-gray-400 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
                                                                 <span>Voltar</span>
                                                             </Link>
                                                             <button type="submit"
                                                                     class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
-                                                                <span>Cadastrar</span>
+                                                                <span>Postar</span>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -285,7 +324,7 @@ import InputComponent from "@/Componentes/Input";
 
 
 export default defineComponent({
-    name: "Pacient Create",
+    name: "Post Create",
     props: {
         errors: Object
     },
@@ -304,15 +343,19 @@ export default defineComponent({
         const bot = Math.floor(Math.random() * 100);
         return {
             form: this.$inertia.form({
-                name: 'bot nº'+bot,
-                email: "bot_email"+bot+"@solutionstec.com.br",
-                password: 123456788789,
+                title: 'title nº'+bot,
+                slug: null,
+                subtitle: "subtitle."+bot+"@solutionstec.com.br",
+                post_content: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+                author: 1,
+                category: 1,
+                post_cover: "/posts/"+bot+"_imagem_teste.jpg",
             }),
         }
     },
     methods: {
         submit() {
-            this.$inertia.post(route('patient.store'), this.form);
+            this.$inertia.post(route('post.store'), this.form);
         }
     },
 })

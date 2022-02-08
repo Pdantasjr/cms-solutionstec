@@ -274,6 +274,7 @@ import JetNavLink from "@/Jetstream/NavLink";
 
 
 export default defineComponent({
+    name: "Pacient Edit",
     props: {
         errors: Object,
         patient: Object,

@@ -180,8 +180,8 @@
                             </div>
                         </header>
                         <div>
-                            <div class="border border-gray-300 shadow-sm bg-white rounded-xl">
-                                <div class="overflow-y-auto relative ">
+                            <div v-if="patients.data.length > 0" class="border border-gray-300 shadow-sm bg-white rounded-xl">
+                                <div class="overflow-y-auto relative">
                                     <table class="w-full text-left divide-y table-auto">
                                         <thead>
                                             <tr>
@@ -256,6 +256,9 @@
                                         </div>
                                     </nav>
                                 </div>
+                            </div>
+                            <div v-else>
+                                <p>Você ainda não cadastrou nenhum paciente.</p>
                             </div>
                         </div>
                     </div>
