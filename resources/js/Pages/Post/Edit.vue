@@ -167,7 +167,7 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl">
-                                Novo Post
+                                Editar Post
                             </h1>
                         </header>
                         <form class="space-y-12" @submit.prevent="submit()">

@@ -90,7 +90,18 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return Inertia::render('Post/Show',[
-            'post' => $post,
+            'author' => Post::with( 'postAuthor'),
+            'category' => Post::with('postCategory'),
+            'post' =>  [
+                    'id' => $post->id,
+                    'title' => $post->title,
+                    'slug' => $post->slug,
+                    'subtitle' => $post->subtitle,
+                    'post_content' => $post->post_content,
+                    'author' => $post->postAuthor->only('name'),
+                    'category' => $post->postCategory ? $post->postCategory->only('name') : null,
+                    'post_cover' => $post->post_cover,
+                ],
         ]);
     }
 

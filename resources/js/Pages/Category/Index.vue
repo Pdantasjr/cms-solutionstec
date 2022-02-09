@@ -181,18 +181,18 @@
                         </header>
                         <div>
                             <div v-if="categories.data.length > 0" class="border border-gray-300 shadow-sm bg-white rounded-xl">
-                                <div class="overflow-y-auto relative border-t">
+                                <div class="overflow-y-auto relative">
                                     <table class="w-full text-left divide-y table-auto">
                                             <thead>
-                                                <tr class="bg-gray-50 rounded">
+                                                <tr>
                                                     <th class="px-4 py-2">
-                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm text-gray-600">Nome</span>
+                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Nome</span>
                                                     </th>
                                                     <th class="px-4 py-2">
-                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm text-gray-600">Última Atualização</span>
+                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Última Atualização</span>
                                                     </th>
                                                     <th class="px-4 py-2">
-                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm text-gray-600">Opções</span>
+                                                        <span class="flex items-center whitespace-nowrap space-x-1 rtl:space-x-reverse font-medium text-sm font-bold text-gray-600">Opções</span>
                                                     </th>
                                                 </tr>
                                             </thead>

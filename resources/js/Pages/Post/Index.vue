@@ -181,7 +181,7 @@
                         </header>
                         <div>
                             <div v-if="posts.data.length > 0"  class="border border-gray-300 shadow-sm bg-white rounded-xl">
-                                <div class="overflow-y-auto relative ">
+                                <div class="overflow-y-auto relative">
                                     <table class="w-full text-left divide-y table-auto">
                                         <thead>
                                         <tr>

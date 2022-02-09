@@ -167,13 +167,13 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl text-gray-900">
-                                Paciente: {{ $props.post.name }}
+                                Post: {{ post.title }}
                             </h1>
                             <!--Botão-->
                             <div class="flex flex-wrap items-center gap-4 justify-start shrink-0">
                                 <Link
                                     class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
-                                    :href="route('post.edit',[$props.post.id])">
+                                    :href="route('post.edit',[post.id])">
                                     <span>Editar</span>
                                 </Link>
                             </div>
@@ -182,18 +182,23 @@
                             <div class="border border-gray-300 shadow-sm bg-white rounded-xl">
                                 <div class="overflow-y-auto relative">
                                     <div class="m-5">
+
+                                        <h1 class="text-md text-gray-700"> Cover: <span class="text-lg text-gray-600 font-bold"> {{ post.post_cover }} </span></h1>
                                         <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"
                                              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
                                              alt="product designer">
-                                        <h1 class="text-md text-gray-700"> Nome: <span class="text-lg text-gray-600 font-bold"> {{ $props.post.name }} </span></h1>
-                                        <h1 class="text-md text-gray-700"> E-mail: <span class="text-lg text-gray-600 font-bold"> {{ $props.post.email }} </span></h1>
+                                        <h1 class="text-md text-gray-700"> Título: <span class="text-lg text-gray-600 font-bold"> {{ post.title }} </span></h1>
+                                        <h1 class="text-md text-gray-700"> Slug: <span class="text-lg text-gray-600 font-bold"> {{ post.slug }} </span></h1>
+                                        <h1 class="text-md text-gray-700"> Subtítulo: <span class="text-lg text-gray-600 font-bold"> {{ post.subtitle }} </span></h1>
+                                        <h3 class="text-md text-gray-700"> Conteúdo:</h3>
                                         <div class="shadow-inner rounded bg-gray-50 my-5">
-                                            <h1 class="text-md text-gray-700 m-3 py-3">Observações: </h1>
-                                            <p class="text-md p-4 text-gray-600 mt-4"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                            <p class="text-md p-4 text-gray-600 mt-4"> {{ post.post_content }} </p>
                                         </div>
+                                        <h1 class="text-md text-gray-700"> Autor: <span class="text-lg text-gray-600 font-bold"> {{ post.author.name }} </span></h1>
+                                        <h1 class="text-md text-gray-700"> Categoria: <span class="text-lg text-gray-600 font-bold"> {{ post.category.name }} </span></h1>
                                         <Link
                                             class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
-                                            :href="route('post.index',[$props.post.id])">
+                                            :href="route('post.index',[post.id])">
                                             <span>Voltar</span>
                                         </Link>
                                     </div>

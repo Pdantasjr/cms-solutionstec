@@ -58,4 +58,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // redatores
+    public function userPosts() {
+        return $this->hasMany(Post::class, 'user', 'id');
+    }
 }
