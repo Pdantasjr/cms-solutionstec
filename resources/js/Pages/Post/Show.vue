@@ -185,8 +185,7 @@
 
                                         <h1 class="text-md text-gray-700"> Cover: <span class="text-lg text-gray-600 font-bold"> {{ post.post_cover }} </span></h1>
                                         <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"
-                                             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                                             alt="product designer">
+                                             :src="post.post_cover" alt="product designer">
                                         <h1 class="text-md text-gray-700"> Título: <span class="text-lg text-gray-600 font-bold"> {{ post.title }} </span></h1>
                                         <h1 class="text-md text-gray-700"> Slug: <span class="text-lg text-gray-600 font-bold"> {{ post.slug }} </span></h1>
                                         <h1 class="text-md text-gray-700"> Subtítulo: <span class="text-lg text-gray-600 font-bold"> {{ post.subtitle }} </span></h1>
