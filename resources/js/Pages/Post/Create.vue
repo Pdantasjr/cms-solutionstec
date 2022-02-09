@@ -232,8 +232,15 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="text" id="post_content" name="post_content" v-model="form.post_content"
-                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+<!--                                                                    <input type="text" id="post_content" name="post_content" v-model="form.post_content"-->
+<!--                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
+
+                                                                    <editor
+                                                                        v-model="form.post_content"
+                                                                        name="post_content"
+                                                                        api-key="xyagt2r6l572tfpdsrvpuwy41hqljl9v76skafjnrpsr3243"
+                                                                        :init="{plugins: 'wordcount'}"
+                                                                    />
                                                                     <div v-if="errors.post_content" v-text="errors.post_content" class="text-xs text-red-500 mt-1"></div>
                                                                 </div>
                                                             </div>
@@ -277,11 +284,8 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-<!--                                                                    <input type="text" id="post_cover" name="post_cover"-->
-<!--                                                                           v-model="form.post_cover"-->
-<!--                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
-                                                                    <input type="file" id="post_cover" name="post_cover"
-
+                                                                   <input type="file" id="post_cover" name="post_cover"
+                                                                           @change="imagePreview()"
                                                                            @input="form.post_cover = $event.target.files[0]"
                                                                            class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
                                                                     <div v-if="errors.post_cover" v-text="errors.post_cover"
@@ -329,6 +333,8 @@ import JetDropdownLink from "@/Jetstream/DropdownLink";
 import JetNavLink from "@/Jetstream/NavLink";
 import InputComponent from "@/Componentes/Input";
 
+import Editor from '@tinymce/tinymce-vue';
+
 
 export default defineComponent({
     name: "Post Create",
@@ -346,16 +352,16 @@ export default defineComponent({
         JetDropdownLink,
         JetNavLink,
         InputComponent,
+        Editor,
 
     },
     data() {
-        const bot = Math.floor(Math.random() * 100);
         return {
             form: this.$inertia.form({
-                title: 'title nº'+bot,
+                title: null,
                 slug: null,
-                subtitle: "subtitle."+bot+"@solutionstec.com.br",
-                post_content: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+                subtitle: null,
+                post_content: null,
                 author: this.$attrs.user.id,
                 category: null,
                 post_cover: null,

@@ -60,6 +60,8 @@ class PostController extends Controller
             'title' => 'required',
             'subtitle' => 'required',
             'post_content' => 'required',
+            'category' => 'required',
+            'post_cover' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048',
         ]);
 
         if(!$validated) {
@@ -75,7 +77,7 @@ class PostController extends Controller
         $post->post_content = $request->post_content;
         $post->author = $request->author;
         $post->category = $request->category;
-        $post->post_cover = $request->file('post_cover') ? $request->file('post_cover')->store('posts') : null;
+        $post->post_cover = $request->file('post_cover') ? $request->file('post_cover')->store('posts', 'public') : null;
         $post->save();
 
         return Redirect::route('post.index')->with(['toast' => ['message' => "Post ".$request->title." cadastrado!"]]);
@@ -102,6 +104,7 @@ class PostController extends Controller
                     'author' => $post->postAuthor->only('name'),
                     'category' => $post->postCategory ? $post->postCategory->only('name') : null,
                     'post_cover' => $post->post_cover,
+                    'created_at' => $post->created_at,
                 ],
         ]);
     }

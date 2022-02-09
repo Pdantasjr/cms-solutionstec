@@ -236,7 +236,6 @@
                                                     <Pagination class="mt-6" :links="categories.links" />
                                                 </div>
                                             </div>
-
                                             <div class="flex items-center justify-end">
                                             </div>
                                         </div>

@@ -245,10 +245,12 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="text" id="post_content"
-                                                                           name="post_content"
-                                                                           v-model="form.post_content"
-                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+<!--                                                                    <input type="text" id="post_content"-->
+<!--                                                                           name="post_content"-->
+<!--                                                                           v-model="form.post_content"-->
+<!--                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
+                                                                    <editor v-model="form.post_content" api-key="xyagt2r6l572tfpdsrvpuwy41hqljl9v76skafjnrpsr3243"
+                                                                            :init="{plugins: 'wordcount'}" />
                                                                     <div v-if="errors.post_content"
                                                                          v-text="errors.post_content"
                                                                          class="text-xs text-red-500 mt-1"></div>
@@ -345,6 +347,7 @@ import MainContent from "@/Layouts/MainContent";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
 import JetNavLink from "@/Jetstream/NavLink";
+import Editor from '@tinymce/tinymce-vue';
 
 
 export default defineComponent({
@@ -363,6 +366,7 @@ export default defineComponent({
         JetDropdown,
         JetDropdownLink,
         JetNavLink,
+        Editor,
     },
     data() {
         return {

@@ -167,7 +167,7 @@
                     <div class="space-y-6">
                         <header class="space-y-2 items-start justify-between sm:flex sm:space-y-0 sm:space-x-4 sm:py-4">
                             <h1 class="text-2xl font-bold tracking-tight md:text-3xl text-gray-900">
-                                Post: {{ post.title }}
+                                <samll class="text-gray-700">Post:</samll> <small class="text-gray-400 mt-10">/{{ post.slug }}</small>
                             </h1>
                             <!--Botão-->
                             <div class="flex flex-wrap items-center gap-4 justify-start shrink-0">
@@ -182,19 +182,14 @@
                             <div class="border border-gray-300 shadow-sm bg-white rounded-xl">
                                 <div class="overflow-y-auto relative">
                                     <div class="m-5">
-
-                                        <h1 class="text-md text-gray-700"> Cover: <span class="text-lg text-gray-600 font-bold"> {{ post.post_cover }} </span></h1>
-                                        <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"
-                                             :src="post.post_cover" alt="product designer">
-                                        <h1 class="text-md text-gray-700"> Título: <span class="text-lg text-gray-600 font-bold"> {{ post.title }} </span></h1>
-                                        <h1 class="text-md text-gray-700"> Slug: <span class="text-lg text-gray-600 font-bold"> {{ post.slug }} </span></h1>
-                                        <h1 class="text-md text-gray-700"> Subtítulo: <span class="text-lg text-gray-600 font-bold"> {{ post.subtitle }} </span></h1>
-                                        <h3 class="text-md text-gray-700"> Conteúdo:</h3>
-                                        <div class="shadow-inner rounded bg-gray-50 my-5">
-                                            <p class="text-md p-4 text-gray-600 mt-4"> {{ post.post_content }} </p>
-                                        </div>
-                                        <h1 class="text-md text-gray-700"> Autor: <span class="text-lg text-gray-600 font-bold"> {{ post.author.name }} </span></h1>
-                                        <h1 class="text-md text-gray-700"> Categoria: <span class="text-lg text-gray-600 font-bold"> {{ post.category.name }} </span></h1>
+                                        <img class="mb-3 w-screen h-10/12 bg-cover bg-center rounded shadow-lg mx-auto"
+                                             :src="showImage() + post.post_cover" alt="product designer">
+                                        <h1 class="text-6xl mt-10 text-center text-gray-700"> {{ post.title }}</h1>
+                                        <h3 class="text-3xl mt-10 text-center text-gray-500"> {{ post.subtitle }} </h3>
+                                        <p class="text-gray-400 mt-10">Publicado em {{ new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric'} ).format( new Date(post.created_at)) }} às {{ new Intl.DateTimeFormat('pt-BR', { hour: 'numeric', minute: 'numeric', second: 'numeric'} ).format( new Date(post.created_at)) }} por <i>{{ post.author.name }}</i></p>
+                                        <div class="p-4 mt-4" v-html="post.post_content"></div>
+                                        <h1 class="text-md text-gray-500 mb-4"> Categoria: <span class="text-lg text-gray-600"> {{ post.category.name }} </span></h1>
+                                        <h5 class="text-sm text-gray-400 mb-6"> Slug: {{ post.slug }} </h5>
                                         <Link
                                             class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
                                             :href="route('post.index',[post.id])">
@@ -247,6 +242,11 @@ export default defineComponent({
                 post_cover: this.post.post_cover,
             }),
         }
+    },
+    methods: {
+        showImage() {
+            return "/storage/";
+        },
     },
 })
 </script>
