@@ -22243,13 +22243,15 @@ __webpack_require__.r(__webpack_exports__);
         post_content: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
         author: this.$attrs.user.id,
         category: null,
-        post_cover: "/posts/" + bot + "_imagem_teste.jpg"
+        post_cover: null
       })
     };
   },
   methods: {
     submit: function submit() {
-      this.$inertia.post(route('post.store'), this.form);
+      this.$inertia.post(route('post.store'), this.form, {
+        forceFormData: true
+      });
     }
   }
 }));
@@ -30909,17 +30911,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "class": "text-xs text-red-500 mt-1"
           }, null, 8
           /* PROPS */
-          , _hoisted_67)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/CATEGORY"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("POST COVER"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [_hoisted_70, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_71, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-            type: "text",
+          , _hoisted_67)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("/CATEGORY"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("POST COVER"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [_hoisted_70, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_71, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                                                    <input type=\"text\" id=\"post_cover\" name=\"post_cover\""), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                                                           v-model=\"form.post_cover\""), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                                                           class=\"block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300\">"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+            type: "file",
             id: "post_cover",
             name: "post_cover",
-            "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-              return _ctx.form.post_cover = $event;
+            onInput: _cache[5] || (_cache[5] = function ($event) {
+              return _ctx.form.post_cover = $event.target.files[0];
             }),
             "class": "block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300"
-          }, null, 512
-          /* NEED_PATCH */
-          ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.form.post_cover]]), _ctx.errors.post_cover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+          }, null, 32
+          /* HYDRATE_EVENTS */
+          ), _ctx.errors.post_cover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
             key: 0,
             textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.errors.post_cover),
             "class": "text-xs text-red-500 mt-1"

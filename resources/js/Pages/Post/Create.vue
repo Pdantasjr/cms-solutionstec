@@ -277,8 +277,12 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="text" id="post_cover" name="post_cover"
-                                                                           v-model="form.post_cover"
+<!--                                                                    <input type="text" id="post_cover" name="post_cover"-->
+<!--                                                                           v-model="form.post_cover"-->
+<!--                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
+                                                                    <input type="file" id="post_cover" name="post_cover"
+
+                                                                           @input="form.post_cover = $event.target.files[0]"
                                                                            class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
                                                                     <div v-if="errors.post_cover" v-text="errors.post_cover"
                                                                          class="text-xs text-red-500 mt-1"></div>
@@ -342,6 +346,7 @@ export default defineComponent({
         JetDropdownLink,
         JetNavLink,
         InputComponent,
+
     },
     data() {
         const bot = Math.floor(Math.random() * 100);
@@ -353,13 +358,15 @@ export default defineComponent({
                 post_content: 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
                 author: this.$attrs.user.id,
                 category: null,
-                post_cover: "/posts/"+bot+"_imagem_teste.jpg",
+                post_cover: null,
             }),
         }
     },
     methods: {
         submit() {
-            this.$inertia.post(route('post.store'), this.form);
+            this.$inertia.post(route('post.store'), this.form, {
+                forceFormData: true,
+            });
         }
     },
 })

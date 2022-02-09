@@ -55,6 +55,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
         $validated = $request->validate([
             'title' => 'required',
             'subtitle' => 'required',
@@ -74,7 +75,7 @@ class PostController extends Controller
         $post->post_content = $request->post_content;
         $post->author = $request->author;
         $post->category = $request->category;
-        $post->post_cover = $request->post_cover;
+        $post->post_cover = $request->file('post_cover') ? $request->file('post_cover')->store('posts') : null;
         $post->save();
 
         return Redirect::route('post.index')->with(['toast' => ['message' => "Post ".$request->title." cadastrado!"]]);
