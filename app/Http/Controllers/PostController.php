@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Validator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -55,7 +57,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
         $validated = $request->validate([
             'title' => 'required',
             'subtitle' => 'required',
@@ -103,7 +104,7 @@ class PostController extends Controller
                     'post_content' => $post->post_content,
                     'author' => $post->postAuthor->only('name'),
                     'category' => $post->postCategory ? $post->postCategory->only('name') : null,
-                    'post_cover' => $post->post_cover,
+                    'post_cover' => asset('storage/'.$post->post_cover),
                     'created_at' => $post->created_at,
                 ],
         ]);
@@ -121,6 +122,7 @@ class PostController extends Controller
             return Inertia::render('Post/Edit', [
                 'post' => Post::find($post->id),
                 'categories' => Category::all(),
+                'cover' => asset('storage/'.$post->post_cover),
             ]);
         }
     }
@@ -134,13 +136,34 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        if($request->category == null) {
 
+//        $image = $post->post_cover;
+//        if($request->hasFile('post_cover')) {
+//            Storage::delete('storate/'. $post->post_cover);
+//            $image = $request->file('post_cover')->store('posts', 'public');
+//        }
+        $this->getValidate($request, $post->id);
+        $post = Post::find($post->id);
+
+        $post->title = $request->input('title');
+        $post->subtitle = $request->input('subtitle');
+        $post->post_content = $request->input('post_content');
+        $post->category = $request->input('category');
+
+        if($request->file('post_cover')) {
+            $post->post_cover = $this->upload($request);
         }
-        if($post->id) {
-            Post::find($post->id)->update($request->all());
-        }
-        return Redirect::route('post.index')->with(['toast' => ['message' => "Post ".$post->title." atualizado com sucesso!"]]);
+        $post->save();
+
+//        $post->update([
+//            'title' => $request->input('title'),
+//            'subtitle' => $request->input('subtitle'),
+//            'post_content' => $request->input('post_content'),
+//            'category' => $request->input('category'),
+//            'post_cover' => $image
+//        ]);
+
+        return Redirect::route('post.index')->with(['toast' => ['message' => "Post atualizado com sucesso!"]]);
     }
 
     /**
@@ -172,5 +195,29 @@ class PostController extends Controller
         }
 
         return $titleSlug;
+    }
+
+    /**
+     * @param Request $request
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    private function getValidate(Request $request, $id = null): void
+    {
+        $data = [
+            'title' => 'required',
+            'subtitle' => 'required',
+            'post_content' => 'required',
+            'category' => 'required',
+            'post_cover' => 'required',
+        ];
+
+        $this->validate($request, $data);
+    }
+    private function upload($request)
+    {
+        $image = $request->file('post_cover');
+        $imageName = md5(uniqid()) . "." . $image->getClientOriginalExtension();
+        $image->move(public_path('uploads'), $imageName);
+        return $imageName;
     }
 }

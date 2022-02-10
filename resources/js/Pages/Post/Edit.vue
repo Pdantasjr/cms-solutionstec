@@ -245,12 +245,26 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-<!--                                                                    <input type="text" id="post_content"-->
-<!--                                                                           name="post_content"-->
-<!--                                                                           v-model="form.post_content"-->
-<!--                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
-                                                                    <editor v-model="form.post_content" api-key="xyagt2r6l572tfpdsrvpuwy41hqljl9v76skafjnrpsr3243"
-                                                                            :init="{plugins: 'wordcount'}" />
+                                                                    <editor
+                                                                        v-model="form.post_content"
+                                                                        name="post_content"
+                                                                        api-key="xyagt2r6l572tfpdsrvpuwy41hqljl9v76skafjnrpsr3243"
+                                                                        :init="{
+                                                                             height: 500,
+                                                                             menubar: false,
+                                                                             language: 'pt_BR',
+                                                                             plugins: [
+                                                                               'advlist autolink lists link image charmap print preview anchor',
+                                                                               'searchreplace visualblocks code fullscreen',
+                                                                               'insertdatetime media table paste code help wordcount',
+                                                                               'fullscreen'
+                                                                             ],
+                                                                             toolbar:
+                                                                               'undo redo | formatselect | bold italic backcolor | \
+                                                                               alignleft aligncenter alignright alignjustify | \
+                                                                               bullist numlist outdent indent | removeformat | help | fullscreen'
+                                                                           }"
+                                                                    />
                                                                     <div v-if="errors.post_content"
                                                                          v-text="errors.post_content"
                                                                          class="text-xs text-red-500 mt-1"></div>
@@ -274,7 +288,6 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-<!--                                                                    <input type="text" id="category" name="category" v-model="form.category" class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
                                                                     <select @change="updateCategory(form.category)" id="category" name="category" v-model="form.category" class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
                                                                         <option v-for="category in categories" key="{{category.id}}" :value="category.id">{{category.name}}</option>
                                                                     </select>
@@ -299,12 +312,19 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-                                                                    <input type="text" id="post_cover" name="post_cover"
-                                                                           v-model="form.post_cover"
+                                                                    <div class="m-2">
+                                                                        <img :src="cover" class="w-full bg-cover bg-center h-auto" alt="Cover do post">
+                                                                    </div>
+                                                                    <input accept="image/*" label="post_cover"  type="file" id="post_cover" name="post_cover" @change="selectFile"
                                                                            class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+
+
                                                                     <div v-if="errors.post_cover"
                                                                          v-text="errors.post_cover"
                                                                          class="text-xs text-red-500 mt-1"></div>
+                                                                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                                                                        {{ form.progress.percentage }}%
+                                                                    </progress>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -356,6 +376,7 @@ export default defineComponent({
         errors: Object,
         post: Object,
         categories: Object,
+        cover: String,
     },
     components: {
         AppLayout,
@@ -377,18 +398,21 @@ export default defineComponent({
                 post_content: this.post.post_content,
                 author: this.post.author,
                 category: this.post.category,
-                post_cover: this.post.post_cover,
+                post_cover: null,
             }),
         }
     },
     methods: {
         submit() {
-            this.$inertia.put(route('post.update', [this.post.id]), this.form);
+            this.$inertia.put(route('post.update', [this.post.id]), this.form, {
+                forceFormData: true,
+                onSuccess: () => this.form.reset('post_cover'),
+            });
         },
-        updateCategory(newCategory) {
-            this.form.category = newCategory;
-            console.log("debug: "+newCategory)
+        selectFile($event) {
+            this.form.post_cover = $event.target.files[0]
+            console.log(this.form.post_cover)
         }
-    },
+    }
 })
 </script>

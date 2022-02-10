@@ -232,14 +232,25 @@
                                                             </div>
                                                             <div class="flex items-center space-x-1 group">
                                                                 <div class="flex-1">
-<!--                                                                    <input type="text" id="post_content" name="post_content" v-model="form.post_content"-->
-<!--                                                                           class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">-->
-
                                                                     <editor
                                                                         v-model="form.post_content"
                                                                         name="post_content"
                                                                         api-key="xyagt2r6l572tfpdsrvpuwy41hqljl9v76skafjnrpsr3243"
-                                                                        :init="{plugins: 'wordcount'}"
+                                                                        :init="{
+                                                                             height: 500,
+                                                                             menubar: false,
+                                                                             language: 'pt_BR',
+                                                                             plugins: [
+                                                                               'advlist autolink lists link image charmap print preview anchor',
+                                                                               'searchreplace visualblocks code fullscreen',
+                                                                               'insertdatetime media table paste code help wordcount',
+                                                                               'fullscreen'
+                                                                             ],
+                                                                             toolbar:
+                                                                               'undo redo | formatselect | bold italic backcolor | \
+                                                                               alignleft aligncenter alignright alignjustify | \
+                                                                               bullist numlist outdent indent | removeformat | help | fullscreen'
+                                                                           }"
                                                                     />
                                                                     <div v-if="errors.post_content" v-text="errors.post_content" class="text-xs text-red-500 mt-1"></div>
                                                                 </div>

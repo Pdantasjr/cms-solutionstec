@@ -183,7 +183,7 @@
                                 <div class="overflow-y-auto relative">
                                     <div class="m-5">
                                         <img class="mb-3 w-screen h-10/12 bg-cover bg-center rounded shadow-lg mx-auto"
-                                             :src="showImage() + post.post_cover" alt="product designer">
+                                             :src="post.post_cover" alt="product designer">
                                         <h1 class="text-6xl mt-10 text-center text-gray-700"> {{ post.title }}</h1>
                                         <h3 class="text-3xl mt-10 text-center text-gray-500"> {{ post.subtitle }} </h3>
                                         <p class="text-gray-400 mt-10">Publicado em {{ new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric'} ).format( new Date(post.created_at)) }} às {{ new Intl.DateTimeFormat('pt-BR', { hour: 'numeric', minute: 'numeric', second: 'numeric'} ).format( new Date(post.created_at)) }} por <i>{{ post.author.name }}</i></p>
@@ -242,11 +242,6 @@ export default defineComponent({
                 post_cover: this.post.post_cover,
             }),
         }
-    },
-    methods: {
-        showImage() {
-            return "/storage/";
-        },
-    },
+    }
 })
 </script>
