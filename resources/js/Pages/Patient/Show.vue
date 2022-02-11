@@ -183,16 +183,15 @@
                                 <div class="overflow-y-auto relative">
                                     <div class="m-5">
                                         <img class="mb-3 w-32 h-32 rounded-full shadow-lg mx-auto"
-                                             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                                             :src="avatar"
                                              alt="product designer">
                                         <h1 class="text-md text-gray-700"> Nome: <span class="text-lg text-gray-600 font-bold"> {{ $props.patient.name }} </span></h1>
                                         <h1 class="text-md text-gray-700"> E-mail: <span class="text-lg text-gray-600 font-bold"> {{ $props.patient.email }} </span></h1>
-                                        <div class="shadow-inner rounded bg-gray-50 my-5">
-                                            <h1 class="text-md text-gray-700 m-3 py-3">Observações: </h1>
-                                            <p class="text-md p-4 text-gray-600 mt-4"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                        </div>
+                                        <h1 class="text-md text-gray-700"> Slug: <span class="text-lg text-gray-600 font-bold"> {{ $props.patient.slug }} </span></h1>
+                                        <h1 class="text-md text-gray-700"> avatar path: <span class="text-lg text-gray-600 font-bold"> {{ $props.patient.avatar }} </span></h1>
+
                                         <Link
-                                            class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
+                                            class="inline-flex mt-5 items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
                                             :href="route('patient.index',[$props.patient.id])">
                                             <span>Voltar</span>
                                         </Link>
@@ -229,13 +228,14 @@ export default defineComponent({
     },
     props: {
         patient: Object,
+        avatar: String,
     },
     data() {
         return {
             form: this.$inertia.form({
                 name: this.patient.name,
+                avatar: this.patient.avatar,
                 email: this.patient.email,
-                teste: 'Paulo'
             }),
         }
     },

@@ -13,8 +13,8 @@
             <div class="col-span-6 sm:col-span-4" v-if="$page.props.jetstream.managesProfilePhotos">
                 <!-- Profile Photo File Input -->
                 <input type="file" class="hidden"
-                            ref="photo"
-                            @change="updatePhotoPreview">
+                       ref="photo"
+                       @change="updatePhotoPreview">
 
                 <jet-label for="photo" value="Photo" />
 
@@ -69,87 +69,87 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetFormSection from '@/Jetstream/FormSection.vue'
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetInputError from '@/Jetstream/InputError.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import { defineComponent } from 'vue'
+import JetButton from '@/Jetstream/Button.vue'
+import JetFormSection from '@/Jetstream/FormSection.vue'
+import JetInput from '@/Jetstream/Input.vue'
+import JetInputError from '@/Jetstream/InputError.vue'
+import JetLabel from '@/Jetstream/Label.vue'
+import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
-    export default defineComponent({
-        components: {
-            JetActionMessage,
-            JetButton,
-            JetFormSection,
-            JetInput,
-            JetInputError,
-            JetLabel,
-            JetSecondaryButton,
+export default defineComponent({
+    components: {
+        JetActionMessage,
+        JetButton,
+        JetFormSection,
+        JetInput,
+        JetInputError,
+        JetLabel,
+        JetSecondaryButton,
+    },
+
+    props: ['user'],
+
+    data() {
+        return {
+            form: this.$inertia.form({
+                _method: 'PUT',
+                name: this.user.name,
+                email: this.user.email,
+                photo: null,
+            }),
+
+            photoPreview: null,
+        }
+    },
+
+    methods: {
+        updateProfileInformation() {
+            if (this.$refs.photo) {
+                this.form.photo = this.$refs.photo.files[0]
+            }
+
+            this.form.post(route('user-profile-information.update'), {
+                errorBag: 'updateProfileInformation',
+                preserveScroll: true,
+                onSuccess: () => (this.clearPhotoFileInput()),
+            });
         },
 
-        props: ['user'],
+        selectNewPhoto() {
+            this.$refs.photo.click();
+        },
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    _method: 'PUT',
-                    name: this.user.name,
-                    email: this.user.email,
-                    photo: null,
-                }),
+        updatePhotoPreview() {
+            const photo = this.$refs.photo.files[0];
 
-                photoPreview: null,
+            if (! photo) return;
+
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                this.photoPreview = e.target.result;
+            };
+
+            reader.readAsDataURL(photo);
+        },
+
+        deletePhoto() {
+            this.$inertia.delete(route('current-user-photo.destroy'), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    this.photoPreview = null;
+                    this.clearPhotoFileInput();
+                },
+            });
+        },
+
+        clearPhotoFileInput() {
+            if (this.$refs.photo?.value) {
+                this.$refs.photo.value = null;
             }
         },
-
-        methods: {
-            updateProfileInformation() {
-                if (this.$refs.photo) {
-                    this.form.photo = this.$refs.photo.files[0]
-                }
-
-                this.form.post(route('user-profile-information.update'), {
-                    errorBag: 'updateProfileInformation',
-                    preserveScroll: true,
-                    onSuccess: () => (this.clearPhotoFileInput()),
-                });
-            },
-
-            selectNewPhoto() {
-                this.$refs.photo.click();
-            },
-
-            updatePhotoPreview() {
-                const photo = this.$refs.photo.files[0];
-
-                if (! photo) return;
-
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    this.photoPreview = e.target.result;
-                };
-
-                reader.readAsDataURL(photo);
-            },
-
-            deletePhoto() {
-                this.$inertia.delete(route('current-user-photo.destroy'), {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        this.photoPreview = null;
-                        this.clearPhotoFileInput();
-                    },
-                });
-            },
-
-            clearPhotoFileInput() {
-                if (this.$refs.photo?.value) {
-                    this.$refs.photo.value = null;
-                }
-            },
-        },
-    })
+    },
+})
 </script>

@@ -11,6 +11,7 @@ class Patient extends Model
         protected $fillable = [
             'name',
             'email',
+            'avatar',
             'password',
         ];
 }

@@ -177,7 +177,7 @@
                                         <div class="col-span-2 ">
                                             <div class="p-6 bg-white shadow rounded-xl">
                                                 <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
-                                                    <!-- Título-->
+                                                    <!-- Nome-->
                                                     <div class="col-span-2 ">
                                                         <div>
                                                             <div class="space-y-2">
@@ -199,6 +199,7 @@
                                                                         <div v-if="errors.name" v-text="errors.name" class="text-xs text-red-500 mt-1"></div>
                                                                     </div>
                                                                 </div>
+
                                                                 <div
                                                                     class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
                                                                     <label
@@ -212,11 +213,32 @@
                                                                 </div>
                                                                 <div class="flex items-center space-x-1 group">
                                                                     <div class="flex-1">
-                                                                        <input type="email" id="email" name="title" v-model="form.email"
-                                                                               class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+                                                                        <input disabled type="email" id="email" name="title" v-model="form.email"
+                                                                               class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300 text-gray-400 cursor-no-drop">
                                                                         <div v-if="errors.email" v-text="errors.email" class="text-xs text-red-500 mt-1"></div>
                                                                     </div>
                                                                 </div>
+
+                                                                <div
+                                                                    class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
+                                                                    <label
+                                                                        class="inline-flex items-center space-x-3 rtl:space-x-reverse"
+                                                                        for="avatar">
+                                                                        <span class="text-sm font-medium leading-4 text-gray-700">
+                                                                            Foto <sup class="font-medium text-danger-700">*</sup>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="flex items-center space-x-1 group">
+                                                                    <div class="flex-1">
+
+                                                                        <input type="file" id="avatar" name="avatar" @input="form.avatar = $event.target.files[0]"
+                                                                               class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
+
+                                                                        <div v-if="errors.avatar" v-text="errors.avatar" class="text-xs text-red-500 mt-1"></div>
+                                                                    </div>
+                                                                </div>
+
                                                                 <div
                                                                     class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
                                                                     <label
@@ -292,16 +314,27 @@ export default defineComponent({
     data() {
         return {
             form: this.$inertia.form({
+                _method: 'PUT',
                 name: this.patient.name,
                 email: this.patient.email,
+                avatar: this.patient.avatar,
                 password: this.patient.password,
             }),
         }
     },
     methods: {
         submit() {
-            this.$inertia.put(route('patient.update', [this.patient.id]), this.form);
-        }
+            this.$inertia.post(route('patient.update', [this.patient.id]), this.form, {
+                preserveScroll: true,
+                onSuccess: () => (this.clearPhotoFileInput()),
+            });
+        },
+
+        clearPhotoFileInput() {
+            if (this.$refs.avatar?.value) {
+                this.$refs.avatar.value = null;
+            }
+        },
     },
 })
 </script>

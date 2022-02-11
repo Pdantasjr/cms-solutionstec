@@ -991,9 +991,6 @@ select {
 .m-5 {
   margin: 1.25rem;
 }
-.m-3 {
-  margin: 0.75rem;
-}
 .m-2 {
   margin: 0.5rem;
 }
@@ -1004,10 +1001,6 @@ select {
 .-mx-3 {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
-}
-.my-5 {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -1278,6 +1271,9 @@ select {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.cursor-no-drop {
+  cursor: no-drop;
 }
 .list-inside {
   list-style-position: inside;
@@ -1896,11 +1892,6 @@ select {
 .shadow-2xl {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-.shadow-inner {
-  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .ring-1 {

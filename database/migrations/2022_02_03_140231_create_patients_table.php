@@ -18,16 +18,27 @@ class CreatePatientsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('email')->unique();
+            $table->string('avatar');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->timestamps();
         });
     }
 
-//     Criar:
-//     - plano;
-//     - idade;
-//     - idade;
+    /*
+     * Data de nascimento
+     * Endereço
+     * Sexo
+     * Telefone
+     * Escolaridade
+     * Ocupação
+     * limitação
+     * alergia
+     * observações
+     *
+     */
+
+
 
     /**
      * Reverse the migrations.

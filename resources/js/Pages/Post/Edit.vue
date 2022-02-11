@@ -315,13 +315,11 @@
                                                                     <div class="m-2">
                                                                         <img :src="cover" class="w-full bg-cover bg-center h-auto" alt="Cover do post">
                                                                     </div>
-                                                                    <input accept="image/*" label="post_cover"  type="file" id="post_cover" name="post_cover" @change="selectFile"
+                                                                    <input label="post_cover"  type="file" id="post_cover" name="post_cover"  @input="form.post_cover = $event.target.files[0]"
                                                                            class="block w-full h-10 transition duration-75 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 border-gray-300">
 
 
-                                                                    <div v-if="errors.post_cover"
-                                                                         v-text="errors.post_cover"
-                                                                         class="text-xs text-red-500 mt-1"></div>
+                                                                    <div v-if="errors.post_cover" v-text="errors.post_cover" class="text-xs text-red-500 mt-1"></div>
                                                                     <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                                                                         {{ form.progress.percentage }}%
                                                                     </progress>
@@ -392,6 +390,7 @@ export default defineComponent({
     data() {
         return {
             form: this.$inertia.form({
+                _method: 'PUT',
                 title: this.post.title,
                 slug: this.post.slug,
                 subtitle: this.post.subtitle,
@@ -404,9 +403,8 @@ export default defineComponent({
     },
     methods: {
         submit() {
-            this.$inertia.put(route('post.update', [this.post.id]), this.form, {
-                forceFormData: true,
-                onSuccess: () => this.form.reset('post_cover'),
+            this.$inertia.post(route('post.update', [this.post.id]), this.form, {
+                preserveScroll: true,
             });
         },
         selectFile($event) {

@@ -57,7 +57,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required',
             'subtitle' => 'required',
             'post_content' => 'required',
@@ -65,12 +65,10 @@ class PostController extends Controller
             'post_cover' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048',
         ]);
 
-        if(!$validated) {
-            return Redirect::route('post.index');
-        }
-
         $post = New Post();
         $slug = $this->setSlug($request->title);
+
+        $coverDefault = "cover_defaul.svg";
 
         $post->title = $request->title;
         $post->slug = $slug;
@@ -78,7 +76,7 @@ class PostController extends Controller
         $post->post_content = $request->post_content;
         $post->author = $request->author;
         $post->category = $request->category;
-        $post->post_cover = $request->file('post_cover') ? $request->file('post_cover')->store('posts', 'public') : null;
+        $post->post_cover = $request->file('post_cover') ? $request->file('post_cover')->store('posts/'.$slug, 'public') : $coverDefault;
         $post->save();
 
         return Redirect::route('post.index')->with(['toast' => ['message' => "Post ".$request->title." cadastrado!"]]);
@@ -137,31 +135,27 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
 
-//        $image = $post->post_cover;
-//        if($request->hasFile('post_cover')) {
-//            Storage::delete('storate/'. $post->post_cover);
-//            $image = $request->file('post_cover')->store('posts', 'public');
-//        }
-        $this->getValidate($request, $post->id);
+        $request->validate([
+            'title' => 'required',
+            'subtitle' => 'required',
+            'post_content' => 'required',
+            'category' => 'required',
+        ]);
+
+        $cover = $post->post_cover;
+        if($request->file('post_cover')) {
+            Storage::delete('public/'.$post->post_cover);
+            $cover = $request->file('post_cover')->store('posts/'.$post->slug,'public');
+        }
+
         $post = Post::find($post->id);
 
         $post->title = $request->input('title');
         $post->subtitle = $request->input('subtitle');
         $post->post_content = $request->input('post_content');
         $post->category = $request->input('category');
-
-        if($request->file('post_cover')) {
-            $post->post_cover = $this->upload($request);
-        }
+        $post->post_cover = $cover;
         $post->save();
-
-//        $post->update([
-//            'title' => $request->input('title'),
-//            'subtitle' => $request->input('subtitle'),
-//            'post_content' => $request->input('post_content'),
-//            'category' => $request->input('category'),
-//            'post_cover' => $image
-//        ]);
 
         return Redirect::route('post.index')->with(['toast' => ['message' => "Post atualizado com sucesso!"]]);
     }
@@ -174,6 +168,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        Storage::deleteDirectory('public/posts/'. $post->slug);
         $post->delete();
         return Redirect::route('post.index')->with(['toast' => ['message' => "Post excluído com sucesso!"]]);
     }
@@ -204,11 +199,7 @@ class PostController extends Controller
     private function getValidate(Request $request, $id = null): void
     {
         $data = [
-            'title' => 'required',
-            'subtitle' => 'required',
-            'post_content' => 'required',
-            'category' => 'required',
-            'post_cover' => 'required',
+
         ];
 
         $this->validate($request, $data);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -23,6 +24,7 @@ class PatientController extends Controller
                     'id' => $pct->id,
                     'name' => $pct->name,
                     'email' => $pct->email,
+                    'avatar' => $pct->avatar,
                     'updated_at' => $pct->updated_at
                 ]),
         ]);
@@ -46,26 +48,26 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'avatar' => 'required',
+            'email' => 'required|unique:patients',
             'password' => 'required',
         ]);
-
-        if(!$validated) {
-            return Redirect::route('patient.create');
-        }
 
         $patient = New Patient();
         $slug = $this->setSlug($request->name);
 
+        $avatarDefault = "avatar_defaul.svg";
+
         $patient->name = $request->name;
         $patient->slug = $slug;
+        $patient->avatar = $request->file('avatar') ? $request->file('avatar')->store('patients/'.$slug, 'public') : $avatarDefault;
         $patient->email = $request->email;
         $patient->password = $request->password;
         $patient->save();
 
-        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente ".$request->name." cadastrado!"]]);
+        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente cadastrado."]]);
     }
 
     /**
@@ -76,10 +78,10 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-            $showPatient = $patient;
-            return Inertia::render('Patient/Show', [
-                'patient' => $showPatient,
-            ]);
+        return Inertia::render('Patient/Show', [
+            'patient' => $patient,
+            'avatar' => asset('storage/'.$patient->avatar),
+        ]);
     }
 
     /**
@@ -107,10 +109,26 @@ class PatientController extends Controller
      */
     public function update(Request $request, Patient $patient)
     {
-        if($patient->id) {
-            Patient::find($patient->id)->update($request->all());
+        $request->validate([
+            'name' => 'required|max:50',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $avatar = $patient->avatar;
+        if($request->file('avatar')) {
+            Storage::delete('public/'.$patient->avatar);
+            $avatar = $request->file('avatar')->store('patients/'.$patient->slug,'public');
         }
-        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente ".$patient->name." atualizado com sucesso!"]]);
+
+        //add verificação de senha na confirmação da alteração
+
+        $patient = Patient::find($patient->id);
+
+        $patient->name = $request->input('name');
+        $patient->avatar = $avatar;
+        $patient->save();
+
+        return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente atualizado com sucesso!"]]);
     }
 
     /**
@@ -121,26 +139,28 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
+        Storage::deleteDirectory('public/patients/'. $patient->slug);
         $patient->delete();
+
         return Redirect::route('patient.index')->with(['toast' => ['message' => "Paciente excluído com sucesso!"]]);
     }
 
-        private function setSlug($patient) {
-            $titleSlug = Str::slug($patient);
+    private function setSlug($patient) {
+        $titleSlug = Str::slug($patient);
 
-            $query = Patient::all();
+        $query = Patient::all();
 
-            $t = 0;
-            foreach ($query as $patient) {
-                if (Str::slug($patient->name) === $titleSlug) {
-                    $t++;
-                }
+        $t = 0;
+        foreach ($query as $patient) {
+            if (Str::slug($patient->name) === $titleSlug) {
+                $t++;
             }
-
-            if ($t > 0) {
-                $titleSlug = $titleSlug . '-' . $t;
-            }
-
-            return $titleSlug;
         }
+
+        if ($t > 0) {
+            $titleSlug = $titleSlug . '-' . $t;
+        }
+
+        return $titleSlug;
+    }
 }
