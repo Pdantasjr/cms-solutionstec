@@ -260,9 +260,9 @@
                                                                                'fullscreen'
                                                                              ],
                                                                              toolbar:
-                                                                               'undo redo | formatselect | bold italic backcolor | \
+                                                                               'undo redo | fontselect fontsizeselect formatselect  | bold italic backcolor | forecolor backcolor removeformat |\
                                                                                alignleft aligncenter alignright alignjustify | \
-                                                                               bullist numlist outdent indent | removeformat | help | fullscreen'
+                                                                               bullist numlist outdent indent | removeformat | fullscreen  preview save print | help'
                                                                            }"
                                                                     />
                                                                     <div v-if="errors.post_content"

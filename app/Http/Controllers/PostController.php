@@ -24,7 +24,7 @@ class PostController extends Controller
         return Inertia::render('Post/Index', [
             'posts' => Post::with('postCategory', 'postAuthor')
                 ->paginate(10)
-                ->through(fn ($pst) => [
+                ->through(fn($pst) => [
                     'id' => $pst->id,
                     'title' => $pst->title,
                     'slug' => $pst->slug,

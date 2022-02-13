@@ -31232,13 +31232,13 @@ var _hoisted_76 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_77 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  type: "submit",
-  "class": "inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Postar")], -1
+var _hoisted_77 = ["disabled"];
+
+var _hoisted_78 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Postar", -1
 /* HOISTED */
 );
 
+var _hoisted_79 = [_hoisted_78];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_sidebar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("sidebar");
 
@@ -31438,9 +31438,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
               menubar: false,
               language: 'pt_BR',
               plugins: ['advlist autolink lists link image charmap print preview anchor', 'searchreplace visualblocks code fullscreen', 'insertdatetime media table paste code help wordcount', 'fullscreen'],
-              toolbar: 'undo redo | formatselect | bold italic backcolor | \
+              toolbar: 'undo redo | fontselect fontsizeselect formatselect  | bold italic backcolor | forecolor backcolor removeformat |\
                                                                                alignleft aligncenter alignright alignjustify | \
-                                                                               bullist numlist outdent indent | removeformat | help | fullscreen'
+                                                                               bullist numlist outdent indent | removeformat | fullscreen  preview save print | help'
             }
           }, null, 8
           /* PROPS */
@@ -31506,7 +31506,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
           }, 8
           /* PROPS */
-          , ["href"]), _hoisted_77])])])])])])])])], 32
+          , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+            type: "submit",
+            disabled: _ctx.form.processing,
+            "class": "inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white"
+          }, _hoisted_79, 8
+          /* PROPS */
+          , _hoisted_77)])])])])])])])])], 32
           /* HYDRATE_EVENTS */
           )])])];
         }),
@@ -32107,9 +32113,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
               menubar: false,
               language: 'pt_BR',
               plugins: ['advlist autolink lists link image charmap print preview anchor', 'searchreplace visualblocks code fullscreen', 'insertdatetime media table paste code help wordcount', 'fullscreen'],
-              toolbar: 'undo redo | formatselect | bold italic backcolor | \
+              toolbar: 'undo redo | fontselect fontsizeselect formatselect  | bold italic backcolor | forecolor backcolor removeformat |\
                                                                                alignleft aligncenter alignright alignjustify | \
-                                                                               bullist numlist outdent indent | removeformat | help | fullscreen'
+                                                                               bullist numlist outdent indent | removeformat | fullscreen  preview save print | help'
             }
           }, null, 8
           /* PROPS */

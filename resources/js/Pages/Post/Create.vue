@@ -247,9 +247,9 @@
                                                                                'fullscreen'
                                                                              ],
                                                                              toolbar:
-                                                                               'undo redo | formatselect | bold italic backcolor | \
+                                                                               'undo redo | fontselect fontsizeselect formatselect  | bold italic backcolor | forecolor backcolor removeformat |\
                                                                                alignleft aligncenter alignright alignjustify | \
-                                                                               bullist numlist outdent indent | removeformat | help | fullscreen'
+                                                                               bullist numlist outdent indent | removeformat | fullscreen  preview save print | help'
                                                                            }"
                                                                     />
                                                                     <div v-if="errors.post_content" v-text="errors.post_content" class="text-xs text-red-500 mt-1"></div>
@@ -313,6 +313,7 @@
                                                                 <span>Voltar</span>
                                                             </Link>
                                                             <button type="submit"
+                                                                    :disabled="form.processing"
                                                                     class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 px-4 text-white shadow focus:ring-white">
                                                                 <span>Postar</span>
                                                             </button>
@@ -382,7 +383,7 @@ export default defineComponent({
     methods: {
         submit() {
             this.$inertia.post(route('post.store'), this.form, {
-                forceFormData: true,
+                forceFormData: true
             });
         }
     },
