@@ -17,8 +17,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-//         $categories = Category::all();
-//         return Inertia::render('Category/Index', ['categories' => $categories]);
         return Inertia::render('Category/Index', [
             'categories' => Category::paginate(10)
             ->through(fn ($ctg) => [
@@ -62,7 +60,7 @@ class CategoryController extends Controller
         $category->slug = $slug;
         $category->save();
 
-        return Redirect::route('category.index')->with(['toast' => ['message' => "Categoria ".$request->name." cadastrado!"]]);
+        return Redirect::route('category.index')->with(['toast' => ['message' => "Categoria cadastrado!"]]);
     }
 
     /**
@@ -93,7 +91,7 @@ class CategoryController extends Controller
         if($category->id) {
             Category::find($category->id)->update($request->all());
         }
-        return Redirect::route('category.index')->with(['toast' => ['message' => "Categoria ".$category->name." atualizado com sucesso!"]]);
+        return Redirect::route('category.index')->with(['toast' => ['message' => "Categoria atualizado com sucesso!"]]);
     }
 
     /**

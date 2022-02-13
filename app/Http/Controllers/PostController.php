@@ -140,6 +140,7 @@ class PostController extends Controller
             'subtitle' => 'required',
             'post_content' => 'required',
             'category' => 'required',
+            'post_cover' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048',
         ]);
 
         $cover = $post->post_cover;
@@ -190,25 +191,5 @@ class PostController extends Controller
         }
 
         return $titleSlug;
-    }
-
-    /**
-     * @param Request $request
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    private function getValidate(Request $request, $id = null): void
-    {
-        $data = [
-
-        ];
-
-        $this->validate($request, $data);
-    }
-    private function upload($request)
-    {
-        $image = $request->file('post_cover');
-        $imageName = md5(uniqid()) . "." . $image->getClientOriginalExtension();
-        $image->move(public_path('uploads'), $imageName);
-        return $imageName;
     }
 }

@@ -50,7 +50,7 @@ class PatientController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'avatar' => 'required',
+            'avatar' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048',
             'email' => 'required|unique:patients',
             'password' => 'required',
         ]);
@@ -111,7 +111,7 @@ class PatientController extends Controller
     {
         $request->validate([
             'name' => 'required|max:50',
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048',
         ]);
 
         $avatar = $patient->avatar;
